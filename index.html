@@ -23,17 +23,16 @@
             width: 100%;
         }
 
-        /* CONTENEDOR PRINCIPAL - SIN BORDES REDONDOS, OCUPA TODA LA PANTALLA */
         .tarot-app-container {
             width: 100%;
             min-height: 100vh;
-            padding: 35px 25px;
+            padding: 20px 15px;
         }
 
-        .tarot-header { text-align: center; margin-bottom: 30px; }
+        .tarot-header { text-align: center; margin-bottom: 25px; }
         .tarot-title { 
             color: #f3cf65; 
-            font-size: clamp(24px, 5vw, 30px); 
+            font-size: clamp(22px, 5vw, 30px); 
             text-transform: uppercase; 
             letter-spacing: 2px; 
             margin: 0 0 6px 0; 
@@ -60,15 +59,15 @@
 
         .tarot-form { 
             background: rgba(25, 13, 50, 0.4); 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 16px; 
             border: 1px solid #412375; 
-            margin-bottom: 30px; 
+            margin-bottom: 25px; 
             max-width: 850px; 
             margin-left: auto; 
             margin-right: auto; 
         }
-        .form-group { margin-bottom: 18px; text-align: left; }
+        .form-group { margin-bottom: 16px; text-align: left; }
         .form-group label { 
             display: block; 
             color: #cdbeea; 
@@ -89,7 +88,6 @@
             border: 1px solid #563399; 
             border-radius: 8px; 
             color: #fff !important; 
-            box-sizing: border-box; 
             font-size: 14px; 
             font-family: sans-serif;
         }
@@ -98,10 +96,10 @@
 
         .tarot-tapete-zone { 
             background: rgba(15, 7, 30, 0.5); 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 16px; 
             border: 1px dashed #412375; 
-            margin-bottom: 30px; 
+            margin-bottom: 25px; 
             text-align: center; 
             max-width: 100%;
             margin-left: auto;
@@ -109,22 +107,21 @@
         }
         .status-box { 
             background: #07030f; 
-            padding: 14px 20px; 
+            padding: 12px 18px; 
             border-radius: 8px; 
             border-left: 3px solid #f3cf65; 
             color: #ded4ef; 
-            font-size: 13px; 
+            font-size: 12px; 
             font-family: sans-serif; 
             display: inline-block; 
-            margin-bottom: 20px; 
+            margin-bottom: 18px; 
             width: auto; 
-            min-width: 300px;
+            min-width: 280px;
             max-width: 600px; 
-            box-sizing: border-box; 
-            transition: all 0.4s ease; 
             text-transform: uppercase; 
             letter-spacing: 0.5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: all 0.4s ease;
         }
         .status-box i { margin-right: 6px; }
         .status-box.highlight { 
@@ -132,15 +129,14 @@
             background: #1f1042; 
             color: #fff; 
             box-shadow: 0 0 25px rgba(243,207,101,0.4); 
-            text-shadow: 0 0 8px #f3cf65; 
         }
 
-        /* SLOTS */
+        /* SLOTS - AHORA MÁS GRANDES */
         .selection-slots { 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            gap: 25px; 
+            gap: clamp(15px, 3vw, 25px); 
             margin: 20px auto; 
             flex-wrap: wrap; 
             min-height: 300px; 
@@ -148,8 +144,8 @@
         }
 
         .slot-horizontal {
-            width: 150px; 
-            height: 240px; 
+            width: clamp(140px, 40vw, 200px); 
+            height: clamp(220px, 60vw, 320px); 
             border: 2px dashed #412375; 
             border-radius: 12px;
             background: rgba(25, 13, 50, 0.3); 
@@ -157,12 +153,9 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            font-size: 11px; 
             color: #a595be; 
             text-align: center; 
-            padding: 10px; 
-            box-sizing: border-box; 
-            font-family: sans-serif; 
+            padding: 8px; 
             perspective: 1000px;
             transition: all 0.4s ease; 
             backdrop-filter: blur(5px);
@@ -170,8 +163,8 @@
         .slot-horizontal:hover { border-color: #7857c5; box-shadow: 0 0 20px rgba(120,87,197,0.3); }
 
         .slot-cruz {
-            width: 130px; 
-            height: 200px; 
+            width: clamp(110px, 30vw, 150px); 
+            height: clamp(170px, 50vw, 240px); 
             border: 2px dashed #412375; 
             border-radius: 12px;
             background: rgba(25, 13, 50, 0.3); 
@@ -179,12 +172,9 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: center; 
-            font-size: 10px; 
             color: #a595be; 
             text-align: center; 
-            padding: 8px; 
-            box-sizing: border-box; 
-            font-family: sans-serif; 
+            padding: 6px; 
             perspective: 1000px;
             transition: all 0.4s ease;
         }
@@ -227,7 +217,7 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 30px; 
+            font-size: clamp(24px, 5vw, 36px); 
             color: #f3cf65; 
             box-shadow: inset 0 0 30px rgba(243,207,101,0.1);
             background-image: radial-gradient(circle at 30% 30%, rgba(243,207,101,0.15) 0%, transparent 50%);
@@ -248,10 +238,10 @@
         /* ZONA DEL MAZO */
         .deck-container { 
             background: rgba(7, 3, 15, 0.6); 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 16px; 
             border: 1px solid #412375; 
-            margin-bottom: 30px; 
+            margin-bottom: 25px; 
             text-align: center; 
             position: relative;
             max-width: 100%;
@@ -265,14 +255,14 @@
             display: none; 
             justify-content: center; 
             align-items: center; 
-            gap: 120px; 
-            margin: 30px 0; 
+            gap: clamp(40px, 10vw, 120px); 
+            margin: 25px 0; 
             perspective: 1200px; 
             flex-wrap: wrap; 
         }
         .tarot-pile {
-            width: 130px; 
-            height: 200px; 
+            width: clamp(110px, 25vw, 140px); 
+            height: clamp(160px, 40vw, 210px); 
             position: relative; 
             cursor: pointer;
             background: linear-gradient(135deg, rgba(34, 18, 71, 0.5) 0%, rgba(20, 10, 40, 0.8) 100%);
@@ -283,7 +273,7 @@
             flex-direction: column; 
             align-items: center; 
             justify-content: flex-end; 
-            padding-bottom: 15px; 
+            padding-bottom: 12px; 
             transform-style: preserve-3d; 
             transform: rotateX(15deg);
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
@@ -324,22 +314,22 @@
         }
 
         .pile-label { 
-            font-size: 12px; 
+            font-size: clamp(10px, 2vw, 13px); 
             color: #f3cf65; 
             text-transform: uppercase; 
             font-weight: bold; 
             z-index: 10; 
             letter-spacing: 1px; 
             background: rgba(7, 3, 15, 0.9); 
-            padding: 5px 12px; 
+            padding: 6px 12px; 
             border-radius: 6px; 
             border: 1px solid #f3cf65; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.8); 
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         .pile-label i { margin-right: 5px; }
         .pile-subtitle {
-            font-size: 9px; 
+            font-size: clamp(8px, 1.5vw, 10px); 
             color: #b4a5cb; 
             text-transform: uppercase; 
             letter-spacing: 1px;
@@ -367,17 +357,17 @@
             transition: all 0.3s;
         }
 
-        /* REJILLA DE CARTAS */
+        /* REJILLA DE CARTAS - MÁS GRANDES */
         .cards-grid { 
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
-            gap: 15px; 
-            margin-top: 20px; 
+            gap: clamp(10px, 2vw, 15px); 
+            margin-top: 15px; 
             position: relative; 
             min-height: 280px; 
             perspective: 1000px;
-            padding: 25px; 
+            padding: 20px; 
             background: rgba(0,0,0,0.3); 
             border-radius: 16px;
             border: 1px solid rgba(65, 35, 117, 0.3);
@@ -385,8 +375,8 @@
         }
 
         .mini-card {
-            width: 65px; 
-            height: 108px; 
+            width: clamp(60px, 18vw, 80px); 
+            height: clamp(95px, 28vw, 130px); 
             background: linear-gradient(135deg, #1a0e38 0%, #0d0520 100%);
             background-image: 
                 radial-gradient(circle at 40% 40%, rgba(243, 207, 101, 0.2) 0%, transparent 50%),
@@ -398,7 +388,7 @@
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            font-size: 18px; 
+            font-size: clamp(16px, 4vw, 22px); 
             color: #f3cf65;
             box-shadow: 0 6px 15px rgba(0,0,0,0.5); 
             position: relative;
@@ -482,8 +472,8 @@
             background: linear-gradient(135deg, #f3cf65 0%, #b89223 100%); 
             color: #07030f; 
             border: none; 
-            padding: 16px 50px; 
-            font-size: 15px; 
+            padding: clamp(14px, 2vw, 18px) clamp(35px, 6vw, 55px); 
+            font-size: clamp(13px, 2vw, 16px); 
             font-family: 'Cinzel', serif; 
             font-weight: bold; 
             border-radius: 35px; 
@@ -521,8 +511,8 @@
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
             color: #fff !important; 
             text-decoration: none; 
-            padding: 18px 45px; 
-            font-size: 16px; 
+            padding: clamp(14px, 2vw, 18px) clamp(30px, 5vw, 45px); 
+            font-size: clamp(13px, 2vw, 16px); 
             font-weight: bold; 
             border-radius: 40px; 
             text-transform: uppercase; 
@@ -539,27 +529,25 @@
             50% { box-shadow: 0 15px 45px rgba(37,211,102,0.8); }
         }
         .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(37,211,102,0.8); }
-        .whatsapp-btn i { font-size: 20px; vertical-align: middle; margin-right: 10px; }
+        .whatsapp-btn i { font-size: clamp(18px, 3vw, 22px); vertical-align: middle; margin-right: 10px; }
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .tarot-app-container { padding: 20px 15px; }
-            .tarot-title { font-size: 22px; }
-            .slot-horizontal { width: 120px; height: 195px; }
-            .slot-cruz { width: 100px; height: 160px; }
-            .split-decks-wrapper { gap: 50px; }
-            .tarot-pile { width: 110px; height: 170px; }
-            .mini-card { width: 55px; height: 90px; font-size: 14px; }
-            .selection-slots { gap: 15px; }
-            .btn-primary-tarot { padding: 14px 35px; font-size: 13px; }
+            .tarot-app-container { padding: 15px 10px; }
+            .tarot-form, .tarot-tapete-zone, .deck-container { padding: 15px; }
+            .selection-slots { gap: 10px; }
+            .split-decks-wrapper { gap: 40px; }
         }
 
         @media (max-width: 480px) {
-            .split-decks-wrapper { gap: 30px; flex-direction: column; align-items: center; }
-            .slot-horizontal { width: 100px; height: 165px; }
-            .slot-cruz { width: 80px; height: 130px; }
-            .mini-card { width: 48px; height: 78px; }
-            .cards-grid { gap: 8px; padding: 15px; }
+            .tarot-app-container { padding: 10px 8px; }
+            .tarot-title { font-size: 20px; }
+            .split-decks-wrapper { 
+                flex-direction: column; 
+                gap: 25px; 
+            }
+            .cards-grid { gap: 8px; padding: 12px; }
+            .status-box { min-width: auto; width: 100%; font-size: 11px; }
         }
     </style>
 </head>
@@ -675,14 +663,12 @@
             
             var particulasDiv = document.createElement('div');
             particulasDiv.className = 'mystic-particles';
-            for (var p = 0; p < 20; p++) {
+            for (var p = 0; p < 15; p++) {
                 var particula = document.createElement('div');
                 particula.className = 'particle';
                 particula.style.left = Math.random() * 100 + '%';
                 particula.style.animationDelay = Math.random() * 2 + 's';
                 particula.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-                particula.style.width = (2 + Math.random() * 3) + 'px';
-                particula.style.height = particula.style.width;
                 particulasDiv.appendChild(particula);
             }
             contenedor.appendChild(particulasDiv);
@@ -711,19 +697,19 @@
                 
                 if (limiteCartas === 5) {
                     slotsContainer.style.display = "grid";
-                    slotsContainer.style.gridTemplateColumns = "repeat(3, 130px)";
-                    slotsContainer.style.gridTemplateRows = "repeat(3, 200px)";
-                    slotsContainer.style.gap = "15px";
+                    slotsContainer.style.gridTemplateColumns = "repeat(3, minmax(100px, 150px))";
+                    slotsContainer.style.gridTemplateRows = "repeat(3, minmax(160px, 240px))";
+                    slotsContainer.style.gap = "12px";
                     slotsContainer.style.justifyContent = "center";
                     slotsContainer.style.alignItems = "center";
-                    slotsContainer.style.minHeight = "620px";
+                    slotsContainer.style.minHeight = "550px";
                 } else {
                     slotsContainer.style.display = "flex";
                     slotsContainer.style.justifyContent = "center";
                     slotsContainer.style.alignItems = "center";
-                    slotsContainer.style.gap = "25px";
+                    slotsContainer.style.gap = "20px";
                     slotsContainer.style.flexWrap = "wrap";
-                    slotsContainer.style.minHeight = "300px";
+                    slotsContainer.style.minHeight = "280px";
                     slotsContainer.style.gridTemplateColumns = "";
                     slotsContainer.style.gridTemplateRows = "";
                 }
@@ -738,7 +724,8 @@
                     }
                     
                     slotDiv.id = "slot" + i;
-                    slotDiv.innerHTML = '<div style="font-size:11px;text-transform:uppercase;color:#a595be;margin-bottom:10px;font-weight:bold;letter-spacing:1px;">' + etiquetas[i] + '</div><div style="font-size:32px;opacity:0.6;"><i class="fas fa-hourglass-half"></i></div>';
+                    // SIN TEXTO, SOLO EL ÍCONO DE ESPERA CENTRADO
+                    slotDiv.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,6vw,40px);opacity:0.5;"><i class="fas fa-hourglass-half"></i></div>';
                     
                     if (limiteCartas === 5) {
                         if (i === 0) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "2"; }
@@ -826,7 +813,7 @@
             var oldParticles = grid.querySelector('.mystic-particles');
             if (oldParticles) oldParticles.remove();
             
-            var totalCartas = 22, radio = 150; 
+            var totalCartas = 22, radio = Math.min(window.innerWidth * 0.35, 160); 
             
             for (var i = 0; i < totalCartas; i++) {
                 var cardDiv = document.createElement("div");
@@ -837,8 +824,8 @@
                 var y = Math.round(radio * Math.sin(angulo));
                 var rotacionGrados = Math.round(angulo * (180 / Math.PI)) + 90;
                 cardDiv.style.position = "absolute";
-                cardDiv.style.left = "calc(50% - 32.5px)";
-                cardDiv.style.top = "calc(50% - 54px)";
+                cardDiv.style.left = "calc(50% - 30px)";
+                cardDiv.style.top = "calc(50% - 47.5px)";
                 cardDiv.style.transform = "translate(" + x + "px, " + y + "px) rotate(" + rotacionGrados + "deg)";
                 cardDiv.style.animation = "none";
                 grid.appendChild(cardDiv);
@@ -885,11 +872,10 @@
                 
                 if (statusBox) { 
                     statusBox.classList.add("highlight"); 
-                    statusBox.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>ELIGE UN MAZO:</strong><br><span style="font-size:11px;color:#cdbeea;"><i class="fas fa-moon"></i> Intuición = Arcanos Emocionales &nbsp;|&nbsp; <i class="fas fa-bolt"></i> Destino = Arcanos de Acción</span>'; 
+                    statusBox.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>ELIGE UN MAZO:</strong><br><span style="font-size:clamp(9px,1.5vw,11px);color:#cdbeea;"><i class="fas fa-moon"></i> Intuición = Arcanos Emocionales &nbsp;|&nbsp; <i class="fas fa-bolt"></i> Destino = Arcanos de Acción</span>'; 
                 }
                 
-                var zonaMazo = document.getElementById("anclajeMazo");
-                if (zonaMazo) zonaMazo.scrollIntoView({ behavior: 'smooth' });
+                grid.scrollIntoView({ behavior: 'smooth' });
             }, 1800); 
         }
 
@@ -931,12 +917,12 @@
             mazoElegido = lado;
             mazoActivoAbanico = (lado === 'izq') ? mazoIzquierdo : mazoDerecho;
             
+            // Limpiar slots - SIN TEXTO
             for (var s = 0; s < limiteCartas; s++) {
                 var slot = document.getElementById("slot" + s);
                 if (slot) {
                     slot.classList.remove("filled");
-                    var etiquetas = nombresPosiciones[limiteCartas.toString()];
-                    slot.innerHTML = '<div style="font-size:11px;text-transform:uppercase;color:#a595be;margin-bottom:10px;font-weight:bold;letter-spacing:1px;">' + etiquetas[s] + '</div><div style="font-size:32px;opacity:0.6;"><i class="fas fa-hourglass-half"></i></div>';
+                    slot.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,6vw,40px);opacity:0.5;"><i class="fas fa-hourglass-half"></i></div>';
                 }
             }
             
@@ -981,13 +967,13 @@
             grid.innerHTML = "";
             grid.classList.remove("rotating-vortex");
             grid.style.position = "relative";
-            grid.style.minHeight = "350px";
+            grid.style.minHeight = "300px";
             grid.style.display = "flex";
             grid.style.flexWrap = "wrap";
             grid.style.justifyContent = "center";
             grid.style.alignItems = "center";
-            grid.style.gap = "15px";
-            grid.style.padding = "25px";
+            grid.style.gap = "12px";
+            grid.style.padding = "20px";
             
             var oldParticles = grid.querySelector('.mystic-particles');
             if (oldParticles) oldParticles.remove();
@@ -1027,14 +1013,13 @@
             var slotObjetivo = document.getElementById("slot" + ranuraActual);
             
             if (slotObjetivo) {
-                var etiquetas = nombresPosiciones[limiteCartas.toString()];
                 slotObjetivo.classList.add("filled");
                 
-                slotObjetivo.innerHTML = '<div style="font-size:10px;text-transform:uppercase;color:#f3cf65;margin-bottom:6px;font-weight:bold;letter-spacing:1px;">' + etiquetas[ranuraActual] + '</div>' +
-                                         '<div class="card-flip-box" id="flipBox' + ranuraActual + '">' +
+                // SOLO LA IMAGEN, SIN TEXTOS
+                slotObjetivo.innerHTML = '<div class="card-flip-box" id="flipBox' + ranuraActual + '" style="width:100%;height:100%;">' +
                                          '  <div class="card-side card-side-back"><i class="fas fa-star"></i></div>' +
                                          '  <div class="card-side card-side-front">' +
-                                         '    <img src="' + objetoCarta.img + '" alt="' + objetoCarta.nombre + '" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div style=background:#170c31;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#f3cf65;font-size:13px;text-align:center;padding:10px;box-sizing:border-box;>\' + this.alt + \'</div>\';">' +
+                                         '    <img src="' + objetoCarta.img + '" alt="' + objetoCarta.nombre + '" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div style=background:#170c31;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#f3cf65;font-size:14px;text-align:center;>\' + this.alt + \'</div>\';">' +
                                          '  </div>' +
                                          '</div>';
                 
@@ -1044,8 +1029,7 @@
                 }, 150);
             }
             
-            var zonaTapete = document.getElementById("anclajeTapete");
-            if (zonaTapete) zonaTapete.scrollIntoView({ behavior: 'smooth' });
+            document.getElementById("anclajeTapete").scrollIntoView({ behavior: 'smooth' });
             
             var statusBox = document.getElementById("gameStatus");
             if (cartasSeleccionadas.length === limiteCartas) {

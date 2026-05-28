@@ -131,16 +131,38 @@
             box-shadow: 0 0 25px rgba(243,207,101,0.4); 
         }
 
-        /* SLOTS - AHORA MÁS GRANDES */
         .selection-slots { 
             display: flex; 
             justify-content: center; 
-            align-items: center; 
-            gap: clamp(15px, 3vw, 25px); 
+            align-items: flex-start; 
+            gap: clamp(20px, 4vw, 35px); 
             margin: 20px auto; 
             flex-wrap: wrap; 
             min-height: 300px; 
             transition: all 0.5s ease;
+        }
+
+        .slot-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .slot-label {
+            font-size: clamp(9px, 1.8vw, 11px);
+            text-transform: uppercase;
+            color: #a595be;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-family: sans-serif;
+            text-align: center;
+            min-height: 16px;
+            transition: all 0.3s ease;
+        }
+        .slot-label.revealed {
+            color: #f3cf65;
+            text-shadow: 0 0 8px rgba(243,207,101,0.5);
         }
 
         .slot-horizontal {
@@ -150,33 +172,29 @@
             border-radius: 12px;
             background: rgba(25, 13, 50, 0.3); 
             display: flex; 
-            flex-direction: column; 
             align-items: center; 
             justify-content: center; 
             color: #a595be; 
-            text-align: center; 
-            padding: 8px; 
             perspective: 1000px;
             transition: all 0.4s ease; 
             backdrop-filter: blur(5px);
+            overflow: hidden;
         }
         .slot-horizontal:hover { border-color: #7857c5; box-shadow: 0 0 20px rgba(120,87,197,0.3); }
 
         .slot-cruz {
-            width: clamp(110px, 30vw, 150px); 
-            height: clamp(170px, 50vw, 240px); 
+            width: clamp(100px, 28vw, 140px); 
+            height: clamp(160px, 45vw, 220px); 
             border: 2px dashed #412375; 
             border-radius: 12px;
             background: rgba(25, 13, 50, 0.3); 
             display: flex; 
-            flex-direction: column; 
             align-items: center; 
             justify-content: center; 
             color: #a595be; 
-            text-align: center; 
-            padding: 6px; 
             perspective: 1000px;
             transition: all 0.4s ease;
+            overflow: hidden;
         }
         .slot-cruz:hover { border-color: #7857c5; box-shadow: 0 0 15px rgba(120,87,197,0.3); }
 
@@ -184,10 +202,14 @@
             border-style: solid; 
             border-color: #f3cf65; 
             background: #221247; 
-            color: #f3cf65; 
-            font-weight: bold; 
             box-shadow: 0 0 25px rgba(243,207,101,0.4);
             animation: pulseSlot 2s ease-in-out infinite;
+        }
+
+        .slot-placeholder {
+            font-size: clamp(28px, 6vw, 40px);
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
 
         @keyframes pulseSlot {
@@ -208,8 +230,8 @@
             width: 100%; 
             height: 100%; 
             backface-visibility: hidden; 
-            border-radius: 10px; 
             overflow: hidden; 
+            border-radius: 10px;
         }
         .card-side-back { 
             background: linear-gradient(135deg, #170c31 0%, #0d0520 100%); 
@@ -225,17 +247,15 @@
         .card-side-front { 
             transform: rotateY(180deg); 
             background: #000; 
-            border: 2px solid #f3cf65; 
-            box-shadow: 0 5px 20px rgba(243,207,101,0.5);
         }
         .card-side-front img { 
             width: 100%; 
             height: 100%; 
             object-fit: cover; 
             display: block; 
+            border-radius: 10px;
         }
 
-        /* ZONA DEL MAZO */
         .deck-container { 
             background: rgba(7, 3, 15, 0.6); 
             padding: 20px; 
@@ -250,7 +270,6 @@
         }
         .action-trigger-zone { margin-bottom: 25px; }
 
-        /* MONTONES DE MAZOS */
         .split-decks-wrapper { 
             display: none; 
             justify-content: center; 
@@ -328,14 +347,6 @@
             margin-bottom: 4px;
         }
         .pile-label i { margin-right: 5px; }
-        .pile-subtitle {
-            font-size: clamp(8px, 1.5vw, 10px); 
-            color: #b4a5cb; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            margin-top: 2px; 
-            z-index: 10;
-        }
 
         .pile-cards-stack { 
             width: 70px; 
@@ -357,7 +368,6 @@
             transition: all 0.3s;
         }
 
-        /* REJILLA DE CARTAS - MÁS GRANDES */
         .cards-grid { 
             display: flex; 
             flex-wrap: wrap; 
@@ -375,8 +385,8 @@
         }
 
         .mini-card {
-            width: clamp(60px, 18vw, 80px); 
-            height: clamp(95px, 28vw, 130px); 
+            width: clamp(58px, 16vw, 75px); 
+            height: clamp(92px, 26vw, 122px); 
             background: linear-gradient(135deg, #1a0e38 0%, #0d0520 100%);
             background-image: 
                 radial-gradient(circle at 40% 40%, rgba(243, 207, 101, 0.2) 0%, transparent 50%),
@@ -421,7 +431,6 @@
             transition: all 0.6s ease;
         }
 
-        /* ANIMACIÓN DE MEZCLA */
         .cards-grid.rotating-vortex { 
             animation: spinWheel 1s linear infinite;
             position: relative;
@@ -440,7 +449,6 @@
             50% { filter: brightness(1.8) drop-shadow(0 0 15px rgba(243,207,101,0.8)); }
         }
 
-        /* PARTÍCULAS MÍSTICAS */
         .mystic-particles {
             position: absolute; 
             top: 0; 
@@ -467,7 +475,6 @@
             100% { transform: translateY(-100%) scale(1.5); opacity: 0; }
         }
 
-        /* BOTONES */
         .btn-primary-tarot { 
             background: linear-gradient(135deg, #f3cf65 0%, #b89223 100%); 
             color: #07030f; 
@@ -505,6 +512,15 @@
             transform: translateY(-3px); 
             box-shadow: 0 12px 35px rgba(243,207,101,0.7); 
         }
+        .btn-primary-tarot:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(50%);
+        }
+        .btn-primary-tarot:disabled:hover {
+            transform: none;
+            box-shadow: 0 8px 25px rgba(243,207,101,0.4);
+        }
 
         .whatsapp-btn { 
             display: none; 
@@ -531,11 +547,10 @@
         .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(37,211,102,0.8); }
         .whatsapp-btn i { font-size: clamp(18px, 3vw, 22px); vertical-align: middle; margin-right: 10px; }
 
-        /* RESPONSIVE */
         @media (max-width: 768px) {
             .tarot-app-container { padding: 15px 10px; }
             .tarot-form, .tarot-tapete-zone, .deck-container { padding: 15px; }
-            .selection-slots { gap: 10px; }
+            .selection-slots { gap: 15px; }
             .split-decks-wrapper { gap: 40px; }
         }
 
@@ -593,17 +608,15 @@
         <div class="deck-container" id="anclajeMazo">
             <h3 class="section-title"><i class="fas fa-layer-group"></i> El Mazo del Destino</h3>
             <div class="action-trigger-zone">
-                <button class="btn-primary-tarot" onclick="arrancarMazo()"><i class="fas fa-shuffle"></i> Mezclar y Partir Mazo</button>
+                <button class="btn-primary-tarot" id="btnMezclar" onclick="arrancarMazo()"><i class="fas fa-shuffle"></i> Mezclar y Partir Mazo</button>
             </div>
             <div class="split-decks-wrapper" id="pilesWrapper">
                 <div class="tarot-pile" id="pileLeft" onclick="abrirMonton('izq')">
-                    <div class="pile-label"><i class="fas fa-moon"></i> Mazo Intuición</div>
-                    <div class="pile-subtitle">Arcanos Emocionales</div>
+                    <div class="pile-label"><i class="fas fa-gem"></i> Mazo A</div>
                     <div class="pile-cards-stack" id="stackLeft"></div>
                 </div>
                 <div class="tarot-pile" id="pileRight" onclick="abrirMonton('der')">
-                    <div class="pile-label"><i class="fas fa-bolt"></i> Mazo Destino</div>
-                    <div class="pile-subtitle">Arcanos de Acción</div>
+                    <div class="pile-label"><i class="fas fa-gem"></i> Mazo B</div>
                     <div class="pile-cards-stack" id="stackRight"></div>
                 </div>
             </div>
@@ -620,41 +633,106 @@
     <script>
         // ⚡ CONFIGURACIÓN
         var TELEFONO_VIDENTE = "34600000000"; 
+        var HORAS_ESPERA = 24; // Cambia aquí las horas entre tiradas (24 = 1 día, 48 = 2 días)
         var IMAGEN_TEMPORAL = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwCaxJhtnLruTPz99yqEwcUe-P9RjWPmLbaPoYJH656pE-XhF89kkkqYBZcdgFqPCWt6Y2jZQTnqM_4ofxyp1qTy5R15hxsOlKu8Z7tpNo6M2cPWsokV7U3Ub29Uie50AIII1xYvjasm0YWNEdz-n8E2rf_nHJFsJlC_pjwPIx6jA0HUj0pOCJByept6mr/s1600/laluna.png";
 
         var arcanosMayores = [
-            { nombre: "El Mago", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Sacerdotisa", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "La Emperatriz", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "El Emperador", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "El Papa", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "Los Enamorados", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "El Carro", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Fuerza", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "El Ermitaño", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "La Rueda de la Fortuna", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Justicia", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "El Colgado", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "La Muerte", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Templanza", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "El Diablo", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Torre", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "La Estrella", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "La Luna", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "El Sol", img: IMAGEN_TEMPORAL, energia: "emocional" },
-            { nombre: "El Juicio", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "El Mundo", img: IMAGEN_TEMPORAL, energia: "accion" },
-            { nombre: "El Loco", img: IMAGEN_TEMPORAL, energia: "accion" }
+            { nombre: "El Mago", img: IMAGEN_TEMPORAL },
+            { nombre: "La Sacerdotisa", img: IMAGEN_TEMPORAL },
+            { nombre: "La Emperatriz", img: IMAGEN_TEMPORAL },
+            { nombre: "El Emperador", img: IMAGEN_TEMPORAL },
+            { nombre: "El Papa", img: IMAGEN_TEMPORAL },
+            { nombre: "Los Enamorados", img: IMAGEN_TEMPORAL },
+            { nombre: "El Carro", img: IMAGEN_TEMPORAL },
+            { nombre: "La Fuerza", img: IMAGEN_TEMPORAL },
+            { nombre: "El Ermitaño", img: IMAGEN_TEMPORAL },
+            { nombre: "La Rueda de la Fortuna", img: IMAGEN_TEMPORAL },
+            { nombre: "La Justicia", img: IMAGEN_TEMPORAL },
+            { nombre: "El Colgado", img: IMAGEN_TEMPORAL },
+            { nombre: "La Muerte", img: IMAGEN_TEMPORAL },
+            { nombre: "La Templanza", img: IMAGEN_TEMPORAL },
+            { nombre: "El Diablo", img: IMAGEN_TEMPORAL },
+            { nombre: "La Torre", img: IMAGEN_TEMPORAL },
+            { nombre: "La Estrella", img: IMAGEN_TEMPORAL },
+            { nombre: "La Luna", img: IMAGEN_TEMPORAL },
+            { nombre: "El Sol", img: IMAGEN_TEMPORAL },
+            { nombre: "El Juicio", img: IMAGEN_TEMPORAL },
+            { nombre: "El Mundo", img: IMAGEN_TEMPORAL },
+            { nombre: "El Loco", img: IMAGEN_TEMPORAL }
         ];
 
         var mazoIzquierdo = [], mazoDerecho = [], mazoActivoAbanico = [], cartasSeleccionadas = [], limiteCartas = 3;
         var mazoElegido = null;
+        var tiradaCompletada = false; // Para evitar doble guardado
 
         var nombresPosiciones = {
-            "1": ["Destino Directo"],
+            "1": ["Tu Destino"],
             "3": ["Pasado", "Presente", "Futuro"],
             "5": ["Situación Actual", "Obstáculo Oculto", "Influencia Externa", "Camino Solución", "Resultado Final"]
         };
+
+        // ⏰ FUNCIONES DE CONTROL DE TIEMPO
+        function puedeTirar() {
+            var datos = JSON.parse(localStorage.getItem("tarotData") || "{}");
+            if (!datos.ultimaTirada) return true;
+            
+            var ahora = new Date().getTime();
+            var diferencia = ahora - datos.ultimaTirada;
+            var horas = diferencia / (1000 * 60 * 60);
+            
+            return horas >= HORAS_ESPERA;
+        }
+
+        function guardarTirada() {
+            if (tiradaCompletada) return; // Evitar doble guardado
+            tiradaCompletada = true;
+            
+            var tipoLectura = document.getElementById("tReadingType").value;
+            var datos = {
+                ultimaTirada: new Date().getTime(),
+                tipoConsulta: tipoLectura,
+                fecha: new Date().toLocaleString()
+            };
+            localStorage.setItem("tarotData", JSON.stringify(datos));
+        }
+
+        function tiempoRestante() {
+            var datos = JSON.parse(localStorage.getItem("tarotData") || "{}");
+            if (!datos.ultimaTirada) return "";
+            
+            var ahora = new Date().getTime();
+            var diferencia = ahora - datos.ultimaTirada;
+            var horasPasadas = diferencia / (1000 * 60 * 60);
+            var horasFaltan = HORAS_ESPERA - horasPasadas;
+            
+            if (horasFaltan <= 0) return "";
+            
+            var h = Math.floor(horasFaltan);
+            var m = Math.floor((horasFaltan - h) * 60);
+            
+            if (h > 0 && m > 0) return h + " horas y " + m + " minutos";
+            if (h > 0) return h + " horas";
+            return m + " minutos";
+        }
+
+        function verificarEstadoInicial() {
+            if (!puedeTirar()) {
+                var statusBox = document.getElementById("gameStatus");
+                var btnMezclar = document.getElementById("btnMezclar");
+                var tiempo = tiempoRestante();
+                
+                if (statusBox) {
+                    statusBox.classList.add("highlight");
+                    statusBox.innerHTML = '<i class="fas fa-clock"></i> Ya has consultado al oráculo.<br><span style="font-size:11px;color:#cdbeea;">Vuelve en ' + tiempo + '</span>';
+                }
+                if (btnMezclar) {
+                    btnMezclar.disabled = true;
+                    btnMezclar.innerHTML = '<i class="fas fa-clock"></i> Espera ' + tiempo;
+                    btnMezclar.style.opacity = "0.6";
+                    btnMezclar.style.cursor = "not-allowed";
+                }
+            }
+        }
 
         function crearParticulas(contenedor) {
             if (!contenedor) return;
@@ -680,6 +758,7 @@
             limiteCartas = parseInt(selector.value);
             cartasSeleccionadas = [];
             mazoElegido = null;
+            tiradaCompletada = false;
             
             if (document.getElementById("wsBtn")) document.getElementById("wsBtn").style.display = "none";
             document.getElementById("pilesWrapper").style.display = "none";
@@ -697,54 +776,82 @@
                 
                 if (limiteCartas === 5) {
                     slotsContainer.style.display = "grid";
-                    slotsContainer.style.gridTemplateColumns = "repeat(3, minmax(100px, 150px))";
-                    slotsContainer.style.gridTemplateRows = "repeat(3, minmax(160px, 240px))";
-                    slotsContainer.style.gap = "12px";
+                    slotsContainer.style.gridTemplateColumns = "repeat(3, 1fr)";
+                    slotsContainer.style.gridTemplateRows = "repeat(3, auto)";
+                    slotsContainer.style.gap = "15px";
                     slotsContainer.style.justifyContent = "center";
                     slotsContainer.style.alignItems = "center";
-                    slotsContainer.style.minHeight = "550px";
+                    slotsContainer.style.justifyItems = "center";
+                    slotsContainer.style.maxWidth = "500px";
+                    slotsContainer.style.margin = "0 auto";
                 } else {
                     slotsContainer.style.display = "flex";
                     slotsContainer.style.justifyContent = "center";
-                    slotsContainer.style.alignItems = "center";
-                    slotsContainer.style.gap = "20px";
+                    slotsContainer.style.alignItems = "flex-start";
+                    slotsContainer.style.gap = "25px";
                     slotsContainer.style.flexWrap = "wrap";
-                    slotsContainer.style.minHeight = "280px";
-                    slotsContainer.style.gridTemplateColumns = "";
-                    slotsContainer.style.gridTemplateRows = "";
+                    slotsContainer.style.maxWidth = "";
+                    slotsContainer.style.margin = "";
                 }
                 
                 for (var i = 0; i < limiteCartas; i++) {
-                    var slotDiv = document.createElement("div");
+                    var wrapperDiv = document.createElement("div");
+                    wrapperDiv.className = "slot-wrapper";
+                    wrapperDiv.id = "wrapper" + i;
                     
+                    var labelDiv = document.createElement("div");
+                    labelDiv.className = "slot-label";
+                    labelDiv.id = "label" + i;
+                    labelDiv.innerText = etiquetas[i];
+                    wrapperDiv.appendChild(labelDiv);
+                    
+                    var slotDiv = document.createElement("div");
                     if (limiteCartas === 5) {
                         slotDiv.className = "slot-cruz";
                     } else {
                         slotDiv.className = "slot-horizontal";
                     }
-                    
                     slotDiv.id = "slot" + i;
-                    // SIN TEXTO, SOLO EL ÍCONO DE ESPERA CENTRADO
-                    slotDiv.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,6vw,40px);opacity:0.5;"><i class="fas fa-hourglass-half"></i></div>';
+                    slotDiv.innerHTML = '<div class="slot-placeholder"><i class="fas fa-hourglass-half"></i></div>';
+                    wrapperDiv.appendChild(slotDiv);
                     
                     if (limiteCartas === 5) {
-                        if (i === 0) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "2"; }
-                        if (i === 1) { slotDiv.style.gridColumn = "1"; slotDiv.style.gridRow = "2"; }
-                        if (i === 2) { slotDiv.style.gridColumn = "3"; slotDiv.style.gridRow = "2"; }
-                        if (i === 3) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "1"; }
-                        if (i === 4) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "3"; }
+                        if (i === 0) { wrapperDiv.style.gridColumn = "2"; wrapperDiv.style.gridRow = "2"; }
+                        if (i === 1) { wrapperDiv.style.gridColumn = "1"; wrapperDiv.style.gridRow = "2"; }
+                        if (i === 2) { wrapperDiv.style.gridColumn = "3"; wrapperDiv.style.gridRow = "2"; }
+                        if (i === 3) { wrapperDiv.style.gridColumn = "2"; wrapperDiv.style.gridRow = "1"; }
+                        if (i === 4) { wrapperDiv.style.gridColumn = "2"; wrapperDiv.style.gridRow = "3"; }
                     }
                     
-                    slotsContainer.appendChild(slotDiv);
+                    slotsContainer.appendChild(wrapperDiv);
                 }
             }
             
             var statusBox = document.getElementById("gameStatus");
-            if (statusBox) { 
-                statusBox.classList.remove("highlight"); 
-                statusBox.innerHTML = '<i class="fas fa-eye"></i> Mazo listo. Usa el botón dorado de abajo para mezclar.'; 
+            var btnMezclar = document.getElementById("btnMezclar");
+            
+            if (!puedeTirar()) {
+                var tiempo = tiempoRestante();
+                if (statusBox) { 
+                    statusBox.classList.add("highlight"); 
+                    statusBox.innerHTML = '<i class="fas fa-clock"></i> Ya has consultado al oráculo.<br><span style="font-size:11px;color:#cdbeea;">Vuelve en ' + tiempo + '</span>'; 
+                }
+                if (btnMezclar) {
+                    btnMezclar.disabled = true;
+                    btnMezclar.innerHTML = '<i class="fas fa-clock"></i> Espera ' + tiempo;
+                }
+            } else {
+                if (statusBox) { 
+                    statusBox.classList.remove("highlight"); 
+                    statusBox.innerHTML = '<i class="fas fa-eye"></i> Mazo listo. Usa el botón dorado de abajo para mezclar.'; 
+                }
+                if (btnMezclar) {
+                    btnMezclar.disabled = false;
+                    btnMezclar.innerHTML = '<i class="fas fa-shuffle"></i> Mezclar y Partir Mazo';
+                    btnMezclar.style.opacity = "1";
+                    btnMezclar.style.cursor = "pointer";
+                }
             }
-            construirMazoEstaticoInicial();
         }
 
         function resetearEstilosMontones() {
@@ -768,39 +875,28 @@
             }
         }
 
-        function construirMazoEstaticoInicial() {
-            var grid = document.getElementById("deckGrid");
-            if (!grid) return;
-            grid.classList.remove("rotating-vortex");
-            grid.innerHTML = "";
-            grid.style.position = "relative";
-            grid.style.minHeight = "280px";
-            
-            var oldParticles = grid.querySelector('.mystic-particles');
-            if (oldParticles) oldParticles.remove();
-            
-            for (var i = 0; i < 16; i++) {
-                var cardDiv = document.createElement("div");
-                cardDiv.className = "mini-card";
-                cardDiv.innerHTML = '<i class="fas fa-star"></i>';
-                cardDiv.style.position = "relative";
-                cardDiv.style.left = "auto";
-                cardDiv.style.top = "auto";
-                cardDiv.style.transform = "none";
-                grid.appendChild(cardDiv);
-            }
-        }
-
         function arrancarMazo() {
+            // 🔒 COMPROBAR SI PUEDE TIRAR
+            if (!puedeTirar()) {
+                var statusBox = document.getElementById("gameStatus");
+                var tiempo = tiempoRestante();
+                if (statusBox) {
+                    statusBox.classList.add("highlight");
+                    statusBox.innerHTML = '<i class="fas fa-clock"></i> Ya has consultado al oráculo.<br><span style="font-size:11px;color:#cdbeea;">Vuelve en ' + tiempo + '</span>';
+                }
+                return;
+            }
+            
             cartasSeleccionadas = [];
             mazoElegido = null;
+            tiradaCompletada = false;
             var grid = document.getElementById("deckGrid");
             if (!grid) return;
             
             var statusBox = document.getElementById("gameStatus");
             if (statusBox) { 
                 statusBox.classList.remove("highlight"); 
-                statusBox.innerHTML = '<i class="fas fa-wind"></i> Canalizando energía cósmica... Mezclando los 22 Arcanos...'; 
+                statusBox.innerHTML = '<i class="fas fa-wind"></i> Mezclando los 22 Arcanos...'; 
             }
             
             resetearEstilosMontones();
@@ -824,8 +920,8 @@
                 var y = Math.round(radio * Math.sin(angulo));
                 var rotacionGrados = Math.round(angulo * (180 / Math.PI)) + 90;
                 cardDiv.style.position = "absolute";
-                cardDiv.style.left = "calc(50% - 30px)";
-                cardDiv.style.top = "calc(50% - 47.5px)";
+                cardDiv.style.left = "calc(50% - 29px)";
+                cardDiv.style.top = "calc(50% - 46px)";
                 cardDiv.style.transform = "translate(" + x + "px, " + y + "px) rotate(" + rotacionGrados + "deg)";
                 cardDiv.style.animation = "none";
                 grid.appendChild(cardDiv);
@@ -840,31 +936,10 @@
                 var oldParticles2 = grid.querySelector('.mystic-particles');
                 if (oldParticles2) oldParticles2.remove();
                 
-                var arcanosEmocionales = [];
-                var arcanosAccion = [];
+                var todosArcanos = barajarArray(arcanosMayores);
                 
-                for (var e = 0; e < arcanosMayores.length; e++) {
-                    if (arcanosMayores[e].energia === "emocional") {
-                        arcanosEmocionales.push(arcanosMayores[e]);
-                    } else {
-                        arcanosAccion.push(arcanosMayores[e]);
-                    }
-                }
-                
-                arcanosEmocionales = barajarArray(arcanosEmocionales);
-                arcanosAccion = barajarArray(arcanosAccion);
-                
-                mazoIzquierdo = arcanosEmocionales.slice(0, 11);
-                mazoDerecho = arcanosAccion.slice(0, 11);
-                
-                if (mazoIzquierdo.length < 11) {
-                    var faltanIzq = 11 - mazoIzquierdo.length;
-                    mazoIzquierdo = mazoIzquierdo.concat(arcanosAccion.slice(0, faltanIzq));
-                }
-                if (mazoDerecho.length < 11) {
-                    var faltanDer = 11 - mazoDerecho.length;
-                    mazoDerecho = mazoDerecho.concat(arcanosEmocionales.slice(0, faltanDer));
-                }
+                mazoIzquierdo = todosArcanos.slice(0, 10);
+                mazoDerecho = todosArcanos.slice(10, 21);
                 
                 document.getElementById("pilesWrapper").style.display = "flex";
                 construirStackVisual("stackLeft");
@@ -872,7 +947,7 @@
                 
                 if (statusBox) { 
                     statusBox.classList.add("highlight"); 
-                    statusBox.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>ELIGE UN MAZO:</strong><br><span style="font-size:clamp(9px,1.5vw,11px);color:#cdbeea;"><i class="fas fa-moon"></i> Intuición = Arcanos Emocionales &nbsp;|&nbsp; <i class="fas fa-bolt"></i> Destino = Arcanos de Acción</span>'; 
+                    statusBox.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>ELIGE UN MAZO</strong><br><span style="font-size:clamp(9px,1.5vw,11px);color:#cdbeea;">Confía en tu intuición... Mazo A o Mazo B</span>'; 
                 }
                 
                 grid.scrollIntoView({ behavior: 'smooth' });
@@ -917,12 +992,16 @@
             mazoElegido = lado;
             mazoActivoAbanico = (lado === 'izq') ? mazoIzquierdo : mazoDerecho;
             
-            // Limpiar slots - SIN TEXTO
             for (var s = 0; s < limiteCartas; s++) {
                 var slot = document.getElementById("slot" + s);
+                var label = document.getElementById("label" + s);
                 if (slot) {
                     slot.classList.remove("filled");
-                    slot.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:clamp(28px,6vw,40px);opacity:0.5;"><i class="fas fa-hourglass-half"></i></div>';
+                    slot.innerHTML = '<div class="slot-placeholder"><i class="fas fa-hourglass-half"></i></div>';
+                }
+                if (label) {
+                    label.classList.remove("revealed");
+                    label.innerText = nombresPosiciones[limiteCartas.toString()][s];
                 }
             }
             
@@ -941,22 +1020,9 @@
                 pileLeft.classList.remove("chosen");
             }
             
-            var mensajesIntuicion = [
-                '<i class="fas fa-moon"></i> La intuición te guía... Escoge las cartas que resuenen con tu alma',
-                '<i class="fas fa-heart"></i> El velo se descorre ante ti... Confía en tu voz interior',
-                '<i class="fas fa-star"></i> Las emociones revelan la verdad... Elige con el corazón'
-            ];
-            var mensajesDestino = [
-                '<i class="fas fa-bolt"></i> El destino está en tus manos... Toma las riendas de tu futuro',
-                '<i class="fas fa-fire"></i> La acción define el camino... Selecciona con determinación',
-                '<i class="fas fa-crown"></i> El poder de decisión es tuyo... Forja tu propio destino'
-            ];
-            
-            var mensajes = (lado === 'izq') ? mensajesIntuicion : mensajesDestino;
-            
             if (statusBox) { 
                 statusBox.classList.add("highlight"); 
-                statusBox.innerHTML = mensajes[Math.floor(Math.random() * mensajes.length)]; 
+                statusBox.innerHTML = '<i class="fas fa-hand-sparkles"></i> Has elegido el <strong>Mazo ' + (lado === 'izq' ? 'A' : 'B') + '</strong>. Ahora selecciona ' + limiteCartas + ' cartas...'; 
             }
             
             if (pilesWrapper) pilesWrapper.style.display = "none";
@@ -987,7 +1053,7 @@
                 cardDiv.innerHTML = '<i class="fas fa-star"></i>';
                 cardDiv.setAttribute("onclick", "clickEnCartaMazo(" + j + ")");
                 cardDiv.style.animation = "floatCard 3s ease-in-out infinite";
-                cardDiv.style.animationDelay = (j * 0.08) + "s";
+                cardDiv.style.animationDelay = (j * 0.06) + "s";
                 cardDiv.style.position = "relative";
                 cardDiv.style.left = "auto";
                 cardDiv.style.top = "auto";
@@ -1011,17 +1077,22 @@
             
             var ranuraActual = cartasSeleccionadas.length - 1;
             var slotObjetivo = document.getElementById("slot" + ranuraActual);
+            var labelObjetivo = document.getElementById("label" + ranuraActual);
             
             if (slotObjetivo) {
                 slotObjetivo.classList.add("filled");
                 
-                // SOLO LA IMAGEN, SIN TEXTOS
                 slotObjetivo.innerHTML = '<div class="card-flip-box" id="flipBox' + ranuraActual + '" style="width:100%;height:100%;">' +
                                          '  <div class="card-side card-side-back"><i class="fas fa-star"></i></div>' +
                                          '  <div class="card-side card-side-front">' +
-                                         '    <img src="' + objetoCarta.img + '" alt="' + objetoCarta.nombre + '" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.onerror=null;this.parentElement.innerHTML=\'<div style=background:#170c31;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#f3cf65;font-size:14px;text-align:center;>\' + this.alt + \'</div>\';">' +
+                                         '    <img src="' + objetoCarta.img + '" alt="' + objetoCarta.nombre + '" style="width:100%;height:100%;object-fit:cover;display:block;">' +
                                          '  </div>' +
                                          '</div>';
+                
+                if (labelObjetivo) {
+                    labelObjetivo.classList.add("revealed");
+                    labelObjetivo.innerHTML = '<i class="fas fa-star"></i> ' + objetoCarta.nombre;
+                }
                 
                 setTimeout(function() {
                     var targetBox = document.getElementById("flipBox" + ranuraActual);
@@ -1033,9 +1104,12 @@
             
             var statusBox = document.getElementById("gameStatus");
             if (cartasSeleccionadas.length === limiteCartas) {
+                // 💾 GUARDAR TIRADA COMPLETADA
+                guardarTirada();
+                
                 if (statusBox) {
                     statusBox.classList.add("highlight");
-                    statusBox.innerHTML = '<i class="fas fa-check-circle"></i> ¡Tirada completada! Los Arcanos han sido revelados. Envíale los datos al vidente.';
+                    statusBox.innerHTML = '<i class="fas fa-check-circle"></i> ¡Tirada completada! Podrás volver a consultar en ' + HORAS_ESPERA + ' horas.';
                 }
                 armarEnlaceWhatsApp();
             } else {
@@ -1053,12 +1127,10 @@
             var cPre = document.getElementById("tQuestion").value.trim() || "Lectura general";
             var etiquetas = nombresPosiciones[limiteCartas.toString()];
             
-            var tipoMazo = (mazoElegido === 'izq') ? '🌙 Mazo Intuición (Arcanos Emocionales)' : '⚡ Mazo Destino (Arcanos de Acción)';
-            
             var msg = "🔮 *LECTURA DE TAROT INTERACTIVO* 🔮\n\n" +
             "👤 *Nombre:* " + cNom + "\n" +
             "📅 *Signo/Fecha:* " + cFec + "\n" +
-            "🎴 *Mazo elegido:* " + tipoMazo + "\n" +
+            "🎴 *Mazo elegido:* " + (mazoElegido === 'izq' ? 'Mazo A' : 'Mazo B') + "\n" +
             "🔮 *Consulta:* " + cPre + "\n\n" +
             "🃏 *ARCANOS REVELADOS* (" + limiteCartas + " cartas):\n";
             
@@ -1076,9 +1148,9 @@
             }
         }
 
-        // 🚀 INICIAR AL CARGAR
         window.onload = function() {
             cambiarTipoLectura();
+            verificarEstadoInicial();
         };
     </script>
 </body>

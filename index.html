@@ -1,0 +1,837 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+.tarot-app-container {
+  font-family: 'Cinzel', 'Georgia', serif;
+  background: radial-gradient(circle at center, #1b0e3a 0%, #07030f 100%);
+  color: #fff;
+  padding: 35px 25px;
+  border-radius: 24px;
+  max-width: 900px;
+  margin: 20px auto;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+  border: 1px solid #563399;
+  width: 100%;
+}
+
+.tarot-header { text-align: center; margin-bottom: 30px; }
+.tarot-title { color: #f3cf65; font-size: 30px; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 6px 0; line-height: 1.3; }
+.tarot-title i { margin-right: 8px; }
+.tarot-subtitle { color: #b4a5cb; font-size: 13px; font-style: italic; margin: 0; font-family: sans-serif; }
+.section-title { color: #f3cf65; font-size: 16px; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #412375; padding-bottom: 8px; text-align: center; }
+.section-title i { margin-right: 6px; }
+
+.tarot-form { background: rgba(25, 13, 50, 0.4); padding: 25px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 30px; }
+.form-group { margin-bottom: 18px; text-align: left; }
+.form-group label { display: block; color: #cdbeea; font-size: 11px; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 1px; font-family: sans-serif; font-weight: bold; }
+.form-group label i { margin-right: 5px; width: 14px; text-align: center; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 12px; background: #07030f !important; border: 1px solid #563399; border-radius: 8px; color: #fff !important; font-size: 16px; font-family: sans-serif;
+}
+.form-group select { cursor: pointer; }
+.form-group select option { background: #1b0e3a; color: #fff; }
+
+.tarot-tapete-zone { background: rgba(15, 7, 30, 0.5); padding: 25px; border-radius: 16px; border: 1px dashed #412375; margin-bottom: 30px; text-align: center; }
+.status-box { 
+  background: #07030f; padding: 14px 20px; border-radius: 8px; border-left: 3px solid #f3cf65; color: #ded4ef; 
+  font-size: 13px; font-family: sans-serif; display: inline-block; margin-bottom: 20px; width: 100%; max-width: 100%;
+  box-sizing: border-box; transition: all 0.4s ease; text-transform: uppercase; letter-spacing: 0.5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); line-height: 1.5;
+}
+.status-box i { margin-right: 6px; }
+.status-box.highlight { 
+  border-left-color: #f3cf65; background: #1f1042; color: #fff; 
+  box-shadow: 0 0 25px rgba(243,207,101,0.4); text-shadow: 0 0 8px #f3cf65; 
+}
+
+/* CONTENEDOR DINÁMICO DEL TAPETE */
+.selection-slots { 
+  display: flex; justify-content: center; align-items: center; gap: 30px; 
+  margin: 20px auto; flex-wrap: wrap; min-height: 320px; transition: all 0.5s ease;
+  width: 100%;
+}
+
+/* SLOTS PARA 1 Y 3 CARTAS - MUCHO MÁS GRANDES */
+.slot-horizontal {
+  width: 200px; height: 320px; border: 2px dashed #412375; border-radius: 14px;
+  background: rgba(25, 13, 50, 0.3); display: flex; flex-direction: column; align-items: center; 
+  justify-content: center; font-size: 11px; color: #a595be; text-align: center; 
+  padding: 0; box-sizing: border-box; font-family: sans-serif; perspective: 1000px;
+  transition: all 0.4s ease; backdrop-filter: blur(5px); overflow: hidden;
+}
+.slot-horizontal:hover { border-color: #7857c5; box-shadow: 0 0 25px rgba(120,87,197,0.3); }
+
+/* SLOTS PARA 5 CARTAS - CRUZ - MÁS GRANDES */
+.slot-cruz {
+  width: 180px; height: 280px; border: 2px dashed #412375; border-radius: 14px;
+  background: rgba(25, 13, 50, 0.3); display: flex; flex-direction: column; align-items: center; 
+  justify-content: center; font-size: 10px; color: #a595be; text-align: center; 
+  padding: 0; box-sizing: border-box; font-family: sans-serif; perspective: 1000px;
+  transition: all 0.4s ease; overflow: hidden;
+}
+.slot-cruz:hover { border-color: #7857c5; box-shadow: 0 0 20px rgba(120,87,197,0.3); }
+
+.slot-horizontal.filled, .slot-cruz.filled { 
+  border-style: solid; border-color: #f3cf65; background: #221247; 
+  box-shadow: 0 0 30px rgba(243,207,101,0.5);
+  animation: pulseSlot 2s ease-in-out infinite;
+  padding: 0;
+}
+
+@keyframes pulseSlot {
+  0%, 100% { box-shadow: 0 0 30px rgba(243,207,101,0.5); }
+  50% { box-shadow: 0 0 50px rgba(243,207,101,0.8); }
+}
+
+.card-flip-box { 
+  width: 100%; height: 100%; position: relative; transform-style: preserve-3d; 
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+  border-radius: 12px;
+}
+.card-flip-box.is-flipped { transform: rotateY(180deg); }
+.card-side { 
+  position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+  border-radius: 12px; overflow: hidden; 
+}
+.card-side-back { 
+  background: linear-gradient(135deg, #170c31 0%, #0d0520 100%); 
+  border: 2px solid #f3cf65; display: flex; align-items: center; justify-content: center; 
+  font-size: 40px; color: #f3cf65; box-shadow: inset 0 0 40px rgba(243,207,101,0.1);
+  background-image: radial-gradient(circle at 30% 30%, rgba(243,207,101,0.15) 0%, transparent 50%);
+}
+.card-side-front { 
+  transform: rotateY(180deg); background: #000; border: 2px solid #f3cf65; 
+  box-shadow: 0 8px 30px rgba(243,207,101,0.6);
+}
+.card-side-front img { 
+  width: 100%; height: 100%; object-fit: cover; display: block; 
+  position: absolute; top: 0; left: 0;
+}
+
+/* ZONA DEL MAZO */
+.deck-container { 
+  background: rgba(7, 3, 15, 0.6); padding: 25px; border-radius: 16px; 
+  border: 1px solid #412375; margin-bottom: 30px; text-align: center; position: relative; 
+}
+.action-trigger-zone { margin-bottom: 25px; }
+
+/* MONTONES DE MAZOS - MÁS GRANDES */
+.split-decks-wrapper { 
+  display: none; justify-content: center; align-items: center; gap: 150px; 
+  margin: 30px 0; perspective: 1200px; flex-wrap: wrap;
+}
+.tarot-pile {
+  width: 170px; height: 260px; position: relative; cursor: pointer;
+  background: linear-gradient(135deg, rgba(34, 18, 71, 0.5) 0%, rgba(20, 10, 40, 0.8) 100%);
+  border-radius: 16px; border: 2px solid #412375;
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; 
+  padding-bottom: 20px; transform-style: preserve-3d; transform: rotateX(15deg);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+.tarot-pile::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(243,207,101,0.1) 0%, transparent 70%);
+  border-radius: 16px; pointer-events: none;
+}
+.tarot-pile:hover { 
+  border-color: #f3cf65; box-shadow: 0 20px 50px rgba(243,207,101,0.5); 
+  transform: rotateX(8deg) translateY(-12px) scale(1.05); 
+}
+.tarot-pile.chosen {
+  border-color: #f3cf65 !important; 
+  box-shadow: 0 0 50px rgba(243,207,101,0.8) !important;
+  transform: rotateX(5deg) translateY(-18px) scale(1.08) !important;
+  animation: chosenGlow 1.5s ease-in-out infinite;
+}
+.tarot-pile.discarded {
+  opacity: 0.25; pointer-events: none; transform: rotateX(15deg) scale(0.85);
+  filter: grayscale(80%); border-color: #1a0a30;
+}
+
+@keyframes chosenGlow {
+  0%, 100% { box-shadow: 0 0 50px rgba(243,207,101,0.8); }
+  50% { box-shadow: 0 0 90px rgba(243,207,101,1), 0 0 130px rgba(243,207,101,0.5); }
+}
+
+.pile-label { 
+  font-size: 14px; color: #f3cf65; text-transform: uppercase; font-weight: bold; 
+  z-index: 10; letter-spacing: 2px; background: rgba(7, 3, 15, 0.95); 
+  padding: 6px 15px; border-radius: 8px; border: 1px solid #f3cf65; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.8); margin-bottom: 6px;
+}
+.pile-label i { margin-right: 6px; }
+.pile-subtitle {
+  font-size: 10px; color: #b4a5cb; text-transform: uppercase; letter-spacing: 1px;
+  margin-top: 2px; z-index: 10;
+}
+
+.pile-cards-stack { 
+  width: 90px; height: 140px; position: absolute; top: 35px; 
+  transform-style: preserve-3d; 
+}
+.stacked-shadow-card {
+  position: absolute; width: 100%; height: 100%;
+  background: linear-gradient(135deg, #170c31 0%, #0d0520 100%);
+  border: 1px solid #f3cf65; border-radius: 10px;
+  background-image: radial-gradient(rgba(243, 207, 101, 0.2) 15%, transparent 16%); 
+  background-size: 6px 6px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.6); transition: all 0.3s;
+}
+
+/* REJILLA DE CARTAS - MUCHO MÁS GRANDES */
+.cards-grid { 
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; 
+  margin-top: 20px; position: relative; min-height: 300px; perspective: 1000px;
+  padding: 30px; background: rgba(0,0,0,0.3); border-radius: 20px;
+  border: 1px solid rgba(65, 35, 117, 0.3);
+  transition: all 0.5s ease;
+}
+
+.mini-card {
+  width: 100px; height: 160px; 
+  background: linear-gradient(135deg, #1a0e38 0%, #0d0520 100%);
+  background-image: 
+    radial-gradient(circle at 40% 40%, rgba(243, 207, 101, 0.2) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(243,207,101,0.05) 25%, transparent 25%, transparent 75%, rgba(243,207,101,0.05) 75%);
+  background-size: 100% 100%, 10px 10px;
+  border: 2px solid #563399; border-radius: 12px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; 
+  font-size: 24px; color: #f3cf65;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5); position: relative;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  animation: floatCard 3s ease-in-out infinite;
+}
+.mini-card:nth-child(odd) { animation-delay: 0.5s; }
+.mini-card:nth-child(3n) { animation-delay: 1s; }
+.mini-card:nth-child(5n+2) { animation-delay: 1.5s; }
+.mini-card:nth-child(7n+4) { animation-delay: 0.7s; }
+
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.mini-card:hover { 
+  border-color: #f3cf65; transform: translateY(-18px) scale(1.15) !important; 
+  z-index: 20; box-shadow: 0 20px 40px rgba(243,207,101,0.6);
+  animation: none;
+  background: linear-gradient(135deg, #2a1550 0%, #150830 100%);
+}
+.mini-card.selected { 
+  opacity: 0.1; pointer-events: none; transform: scale(0.6) rotateY(90deg) !important; 
+  filter: blur(2px); transition: all 0.6s ease;
+}
+
+/* ANIMACIÓN DE MEZCLA */
+.cards-grid.rotating-vortex { 
+  animation: spinWheel 1s linear infinite;
+  position: relative;
+}
+.cards-grid.rotating-vortex .mini-card {
+  animation: vortexCard 1s ease-in-out infinite;
+}
+
+@keyframes spinWheel { 
+  0% { transform: rotate(0deg); } 
+  100% { transform: rotate(360deg); } 
+}
+
+@keyframes vortexCard {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.8) drop-shadow(0 0 20px rgba(243,207,101,0.8)); }
+}
+
+/* PARTÍCULAS MÍSTICAS */
+.mystic-particles {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; overflow: hidden; border-radius: 20px; z-index: 1;
+}
+.particle {
+  position: absolute; width: 4px; height: 4px; background: #f3cf65;
+  border-radius: 50%; animation: riseParticle 2s ease-in infinite;
+  opacity: 0;
+}
+@keyframes riseParticle {
+  0% { transform: translateY(100%) scale(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-100%) scale(1.5); opacity: 0; }
+}
+
+/* BOTONES */
+.btn-primary-tarot { 
+  background: linear-gradient(135deg, #f3cf65 0%, #b89223 100%); 
+  color: #07030f; border: none; padding: 18px 40px; font-size: 16px; 
+  font-family: 'Cinzel', serif; font-weight: bold; border-radius: 40px; 
+  cursor: pointer; text-transform: uppercase; 
+  box-shadow: 0 10px 30px rgba(243,207,101,0.4); letter-spacing: 2px; 
+  display: inline-block; transition: all 0.3s ease;
+  position: relative; overflow: hidden; width: auto; max-width: 100%;
+}
+.btn-primary-tarot i { margin-right: 10px; }
+.btn-primary-tarot::after {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+  animation: shimmer 3s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+.btn-primary-tarot:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 15px 40px rgba(243,207,101,0.7); 
+}
+
+.whatsapp-btn { 
+  display: none; 
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); 
+  color: #fff !important; text-decoration: none; padding: 20px 40px; 
+  font-size: 16px; font-weight: bold; border-radius: 45px; text-transform: uppercase; 
+  box-shadow: 0 12px 35px rgba(37,211,102,0.5); margin: 15px auto; 
+  max-width: 100%; text-align: center; font-family: sans-serif;
+  transition: all 0.3s ease; animation: pulseBtn 2s ease-in-out infinite;
+  width: auto;
+}
+@keyframes pulseBtn {
+  0%, 100% { box-shadow: 0 12px 35px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 20px 55px rgba(37,211,102,0.8); }
+}
+.whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(37,211,102,0.8); }
+.whatsapp-btn i { font-size: 22px; vertical-align: middle; margin-right: 10px; }
+
+/* ============================================= */
+/* 📱 RESPONSIVE */
+/* ============================================= */
+
+@media (max-width: 768px) {
+  .tarot-app-container { padding: 20px 15px; margin: 10px auto; }
+  .tarot-title { font-size: 24px; }
+  .tarot-form { padding: 18px; }
+  
+  /* Slots tablet */
+  .slot-horizontal { width: 150px; height: 240px; }
+  .slot-cruz { width: 130px; height: 200px; }
+  .selection-slots { gap: 20px; min-height: 280px; }
+  
+  /* Montones tablet */
+  .split-decks-wrapper { gap: 80px; }
+  .tarot-pile { width: 140px; height: 220px; }
+  .pile-cards-stack { width: 75px; height: 115px; top: 30px; }
+  
+  /* Cartas tablet */
+  .cards-grid { gap: 15px; padding: 20px; }
+  .mini-card { width: 80px; height: 130px; font-size: 20px; }
+}
+
+@media (max-width: 600px) {
+  .tarot-title { font-size: 20px; }
+  
+  /* Slots móvil medio */
+  .slot-horizontal { width: 130px; height: 210px; }
+  .slot-cruz { width: 110px; height: 175px; }
+  .selection-slots { gap: 15px; min-height: 250px; }
+  
+  /* Montones móvil medio */
+  .split-decks-wrapper { gap: 50px; }
+  .tarot-pile { width: 120px; height: 190px; padding-bottom: 15px; }
+  .pile-label { font-size: 11px; padding: 4px 10px; }
+  .pile-cards-stack { width: 65px; height: 100px; top: 25px; }
+  
+  /* Cartas móvil medio */
+  .cards-grid { gap: 12px; padding: 15px; min-height: 220px; }
+  .mini-card { width: 70px; height: 112px; font-size: 18px; }
+  
+  .btn-primary-tarot { padding: 14px 30px; font-size: 13px; }
+  .whatsapp-btn { padding: 16px 30px; font-size: 14px; }
+}
+
+@media (max-width: 420px) {
+  .tarot-app-container { padding: 15px 10px; }
+  .tarot-title { font-size: 18px; letter-spacing: 1px; }
+  
+  /* Slots móvil pequeño */
+  .slot-horizontal { width: 110px; height: 178px; border-radius: 10px; }
+  .slot-cruz { width: 95px; height: 150px; border-radius: 10px; }
+  .selection-slots { gap: 10px; min-height: 210px; }
+  
+  /* Montones en vertical */
+  .split-decks-wrapper { gap: 25px; flex-direction: column; align-items: center; }
+  .tarot-pile { width: 110px; height: 170px; }
+  .pile-cards-stack { width: 58px; height: 88px; top: 22px; }
+  
+  /* Cartas móvil pequeño */
+  .cards-grid { gap: 8px; padding: 12px 8px; min-height: 180px; border-radius: 14px; }
+  .mini-card { width: 58px; height: 94px; font-size: 16px; border-radius: 8px; }
+  
+  .btn-primary-tarot { padding: 12px 22px; font-size: 11px; letter-spacing: 1px; }
+  .whatsapp-btn { padding: 14px 22px; font-size: 12px; }
+  .status-box { font-size: 11px; padding: 10px 12px; }
+}
+
+@media (max-width: 350px) {
+  .slot-horizontal { width: 95px; height: 155px; }
+  .slot-cruz { width: 80px; height: 130px; }
+  .mini-card { width: 50px; height: 80px; font-size: 14px; }
+  .cards-grid { gap: 6px; padding: 10px 5px; }
+}
+</style>
+
+<div class="tarot-app-container">
+  <div class="tarot-header">
+    <h2 class="tarot-title"><i class="fas fa-eye"></i> Oráculo Ancestral Dinámico</h2>
+    <p class="tarot-subtitle">Introduce tus datos, divide el mazo y consulta tu destino</p>
+  </div>
+
+  <div class="tarot-form">
+    <h3 class="section-title"><i class="fas fa-star"></i> Datos de Conexión</h3>
+    <div class="form-group">
+      <label for="tName"><i class="fas fa-user"></i> Nombre Completo:</label>
+      <input type="text" id="tName" placeholder="Ej: María García">
+    </div>
+    <div class="form-group">
+      <label for="tBirth"><i class="fas fa-calendar-alt"></i> Fecha de Nacimiento o Signo:</label>
+      <input type="text" id="tBirth" placeholder="Ej: 24 de Abril / Escorpio">
+    </div>
+    <div class="form-group">
+      <label for="tReadingType"><i class="fas fa-crystal-ball"></i> Tipo de Consulta:</label>
+      <select id="tReadingType" onchange="cambiarTipoLectura()">
+        <option value="1">1 Carta - Sí o No</option>
+        <option value="3" selected>3 Cartas - Pasado, Presente, Futuro</option>
+        <option value="5">5 Cartas - Cruz Simple</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tQuestion"><i class="fas fa-question-circle"></i> Tu Pregunta:</label>
+      <textarea id="tQuestion" rows="3" placeholder="Escribe aquí tu consulta..."></textarea>
+    </div>
+  </div>
+
+  <div class="tarot-tapete-zone" id="anclajeTapete">
+    <h3 class="section-title"><i class="fas fa-hand-sparkles"></i> Tu Alineación Sagrada</h3>
+    <div class="status-box" id="gameStatus">
+      <i class="fas fa-info-circle"></i> Rellena tus datos y baja a mezclar los arcanos.
+    </div>
+    <div class="selection-slots" id="slotsContainer"></div>
+  </div>
+
+  <div class="deck-container" id="anclajeMazo">
+    <h3 class="section-title"><i class="fas fa-layer-group"></i> El Mazo del Destino</h3>
+    <div class="action-trigger-zone">
+      <button class="btn-primary-tarot" onclick="arrancarMazo()"><i class="fas fa-shuffle"></i> Mezclar y Partir Mazo</button>
+    </div>
+    <div class="split-decks-wrapper" id="pilesWrapper">
+      <div class="tarot-pile" id="pileLeft" onclick="abrirMonton('izq')">
+        <div class="pile-label"><i class="fas fa-moon"></i> Mazo Intuición</div>
+        <div class="pile-subtitle">Arcanos Emocionales</div>
+        <div class="pile-cards-stack" id="stackLeft"></div>
+      </div>
+      <div class="tarot-pile" id="pileRight" onclick="abrirMonton('der')">
+        <div class="pile-label"><i class="fas fa-bolt"></i> Mazo Destino</div>
+        <div class="pile-subtitle">Arcanos de Acción</div>
+        <div class="pile-cards-stack" id="stackRight"></div>
+      </div>
+    </div>
+    <div class="cards-grid" id="deckGrid"></div>
+  </div>
+
+  <div class="footer-action-area">
+    <a href="#" id="wsBtn" class="whatsapp-btn" target="_blank">
+      <i class="fab fa-whatsapp"></i> ENVIAR LECTURA AL VIDENTE
+    </a>
+  </div>
+</div>
+
+<script>
+// ⚡ CONFIGURACIÓN
+var TELEFONO_VIDENTE = "34600000000"; 
+
+// 🃏 IMAGEN TEMPORAL
+var IMAGEN_TEMPORAL = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwCaxJhtnLruTPz99yqEwcUe-P9RjWPmLbaPoYJH656pE-XhF89kkkqYBZcdgFqPCWt6Y2jZQTnqM_4ofxyp1qTy5R15hxsOlKu8Z7tpNo6M2cPWsokV7U3Ub29Uie50AIII1xYvjasm0YWNEdz-n8E2rf_nHJFsJlC_pjwPIx6jA0HUj0pOCJByept6mr/s1600/laluna.png";
+
+var arcanosMayores = [
+  { nombre: "El Mago", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Sacerdotisa", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "La Emperatriz", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "El Emperador", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "El Papa", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "Los Enamorados", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "El Carro", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Fuerza", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "El Ermitaño", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "La Rueda de la Fortuna", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Justicia", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "El Colgado", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "La Muerte", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Templanza", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "El Diablo", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Torre", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "La Estrella", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "La Luna", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "El Sol", img: IMAGEN_TEMPORAL, energia: "emocional" },
+  { nombre: "El Juicio", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "El Mundo", img: IMAGEN_TEMPORAL, energia: "accion" },
+  { nombre: "El Loco", img: IMAGEN_TEMPORAL, energia: "accion" }
+];
+
+var mazoIzquierdo = [], mazoDerecho = [], mazoActivoAbanico = [], cartasSeleccionadas = [], limiteCartas = 3;
+var mazoElegido = null;
+
+var nombresPosiciones = {
+  "1": ["Destino Directo"],
+  "3": ["Pasado", "Presente", "Futuro"],
+  "5": ["Situación Actual", "Obstáculo Oculto", "Influencia Externa", "Camino Solución", "Resultado Final"]
+};
+
+function crearParticulas(contenedor) {
+  if (!contenedor) return;
+  var existentes = contenedor.querySelector('.mystic-particles');
+  if (existentes) existentes.remove();
+  
+  var particulasDiv = document.createElement('div');
+  particulasDiv.className = 'mystic-particles';
+  for (var p = 0; p < 25; p++) {
+    var particula = document.createElement('div');
+    particula.className = 'particle';
+    particula.style.left = Math.random() * 100 + '%';
+    particula.style.animationDelay = Math.random() * 2 + 's';
+    particula.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    particula.style.width = (3 + Math.random() * 4) + 'px';
+    particula.style.height = particula.style.width;
+    particulasDiv.appendChild(particula);
+  }
+  contenedor.appendChild(particulasDiv);
+}
+
+function cambiarTipoLectura() {
+  var selector = document.getElementById("tReadingType");
+  if (!selector) return;
+  limiteCartas = parseInt(selector.value);
+  cartasSeleccionadas = [];
+  mazoElegido = null;
+  
+  if (document.getElementById("wsBtn")) document.getElementById("wsBtn").style.display = "none";
+  document.getElementById("pilesWrapper").style.display = "none";
+  document.getElementById("deckGrid").innerHTML = "";
+  
+  resetearEstilosMontones();
+  
+  var slotsContainer = document.getElementById("slotsContainer");
+  if (slotsContainer) {
+    slotsContainer.innerHTML = "";
+    
+    slotsContainer.style.cssText = "";
+    slotsContainer.className = "selection-slots";
+    
+    var esMovil = window.innerWidth <= 420;
+    
+    if (limiteCartas === 5) {
+      var tamSlot = esMovil ? "95px" : "180px";
+      var tamFila = esMovil ? "150px" : "280px";
+      slotsContainer.style.display = "grid";
+      slotsContainer.style.gridTemplateColumns = "repeat(3, " + tamSlot + ")";
+      slotsContainer.style.gridTemplateRows = "repeat(3, " + tamFila + ")";
+      slotsContainer.style.gap = esMovil ? "8px" : "18px";
+      slotsContainer.style.justifyContent = "center";
+      slotsContainer.style.alignItems = "center";
+      slotsContainer.style.minHeight = esMovil ? "470px" : "880px";
+    } else {
+      slotsContainer.style.display = "flex";
+      slotsContainer.style.justifyContent = "center";
+      slotsContainer.style.alignItems = "center";
+      slotsContainer.style.gap = esMovil ? "10px" : "30px";
+      slotsContainer.style.flexWrap = "wrap";
+      slotsContainer.style.minHeight = esMovil ? "200px" : "350px";
+    }
+    
+    for (var i = 0; i < limiteCartas; i++) {
+      var slotDiv = document.createElement("div");
+      slotDiv.className = (limiteCartas === 5) ? "slot-cruz" : "slot-horizontal";
+      slotDiv.id = "slot" + i;
+      slotDiv.innerHTML = '<div style="font-size:32px;opacity:0.5;color:#a595be;"><i class="fas fa-hourglass-half"></i></div>';
+      
+      if (limiteCartas === 5) {
+        if (i === 0) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "2"; }
+        if (i === 1) { slotDiv.style.gridColumn = "1"; slotDiv.style.gridRow = "2"; }
+        if (i === 2) { slotDiv.style.gridColumn = "3"; slotDiv.style.gridRow = "2"; }
+        if (i === 3) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "1"; }
+        if (i === 4) { slotDiv.style.gridColumn = "2"; slotDiv.style.gridRow = "3"; }
+      }
+      slotsContainer.appendChild(slotDiv);
+    }
+  }
+  
+  var statusBox = document.getElementById("gameStatus");
+  if (statusBox) { 
+    statusBox.classList.remove("highlight"); 
+    statusBox.innerHTML = '<i class="fas fa-eye"></i> Mazo listo. Usa el botón dorado para mezclar.'; 
+  }
+  construirMazoEstaticoInicial();
+}
+
+function resetearEstilosMontones() {
+  var pileLeft = document.getElementById("pileLeft");
+  var pileRight = document.getElementById("pileRight");
+  if (pileLeft) {
+    pileLeft.classList.remove("chosen", "discarded");
+    pileLeft.style.opacity = "1"; pileLeft.style.pointerEvents = "auto";
+    pileLeft.style.transform = "rotateX(15deg)"; pileLeft.style.borderColor = "#412375";
+    pileLeft.style.boxShadow = "0 15px 40px rgba(0,0,0,0.6)";
+  }
+  if (pileRight) {
+    pileRight.classList.remove("chosen", "discarded");
+    pileRight.style.opacity = "1"; pileRight.style.pointerEvents = "auto";
+    pileRight.style.transform = "rotateX(15deg)"; pileRight.style.borderColor = "#412375";
+    pileRight.style.boxShadow = "0 15px 40px rgba(0,0,0,0.6)";
+  }
+}
+
+function construirMazoEstaticoInicial() {
+  var grid = document.getElementById("deckGrid");
+  if (!grid) return;
+  grid.classList.remove("rotating-vortex");
+  grid.innerHTML = "";
+  grid.style.position = "relative";
+  
+  var oldParticles = grid.querySelector('.mystic-particles');
+  if (oldParticles) oldParticles.remove();
+  
+  for (var i = 0; i < 16; i++) {
+    var cardDiv = document.createElement("div");
+    cardDiv.className = "mini-card";
+    cardDiv.innerHTML = '<i class="fas fa-star"></i>';
+    cardDiv.style.position = "relative"; cardDiv.style.left = "auto";
+    cardDiv.style.top = "auto"; cardDiv.style.transform = "none";
+    grid.appendChild(cardDiv);
+  }
+}
+
+function arrancarMazo() {
+  cartasSeleccionadas = []; mazoElegido = null;
+  var grid = document.getElementById("deckGrid");
+  if (!grid) return;
+  
+  var statusBox = document.getElementById("gameStatus");
+  if (statusBox) { 
+    statusBox.classList.remove("highlight"); 
+    statusBox.innerHTML = '<i class="fas fa-wind"></i> Canalizando energía cósmica...'; 
+  }
+  
+  resetearEstilosMontones();
+  document.getElementById("pilesWrapper").style.display = "none";
+  
+  grid.innerHTML = "";
+  grid.style.position = "relative";
+  
+  var oldParticles = grid.querySelector('.mystic-particles');
+  if (oldParticles) oldParticles.remove();
+  
+  var totalCartas = 22;
+  var radio = window.innerWidth <= 420 ? 110 : (window.innerWidth <= 600 ? 140 : 180); 
+  
+  for (var i = 0; i < totalCartas; i++) {
+    var cardDiv = document.createElement("div");
+    cardDiv.className = "mini-card";
+    cardDiv.innerHTML = '<i class="fas fa-star"></i>';
+    var angulo = (i * 2 * Math.PI) / totalCartas - Math.PI/2;
+    var x = Math.round(radio * Math.cos(angulo));
+    var y = Math.round(radio * Math.sin(angulo));
+    var rotacionGrados = Math.round(angulo * (180 / Math.PI)) + 90;
+    cardDiv.style.position = "absolute";
+    cardDiv.style.left = "calc(50% - 50px)";
+    cardDiv.style.top = "calc(50% - 80px)";
+    cardDiv.style.transform = "translate(" + x + "px, " + y + "px) rotate(" + rotacionGrados + "deg)";
+    cardDiv.style.animation = "none";
+    grid.appendChild(cardDiv);
+  }
+  
+  crearParticulas(grid);
+  grid.classList.add("rotating-vortex");
+  
+  setTimeout(function() {
+    grid.classList.remove("rotating-vortex");
+    grid.innerHTML = "";
+    var oldParticles2 = grid.querySelector('.mystic-particles');
+    if (oldParticles2) oldParticles2.remove();
+    
+    var arcanosEmocionales = [], arcanosAccion = [];
+    for (var e = 0; e < arcanosMayores.length; e++) {
+      if (arcanosMayores[e].energia === "emocional") arcanosEmocionales.push(arcanosMayores[e]);
+      else arcanosAccion.push(arcanosMayores[e]);
+    }
+    
+    arcanosEmocionales = barajarArray(arcanosEmocionales);
+    arcanosAccion = barajarArray(arcanosAccion);
+    mazoIzquierdo = arcanosEmocionales.slice(0, 11);
+    mazoDerecho = arcanosAccion.slice(0, 11);
+    
+    if (mazoIzquierdo.length < 11) mazoIzquierdo = mazoIzquierdo.concat(arcanosAccion.slice(0, 11 - mazoIzquierdo.length));
+    if (mazoDerecho.length < 11) mazoDerecho = mazoDerecho.concat(arcanosEmocionales.slice(0, 11 - mazoDerecho.length));
+    
+    document.getElementById("pilesWrapper").style.display = "flex";
+    construirStackVisual("stackLeft");
+    construirStackVisual("stackRight");
+    
+    if (statusBox) { 
+      statusBox.classList.add("highlight"); 
+      statusBox.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>ELIGE UN MAZO</strong>'; 
+    }
+    
+    var zonaMazo = document.getElementById("anclajeMazo");
+    if (zonaMazo) zonaMazo.scrollIntoView({ behavior: 'smooth' });
+  }, 1800); 
+}
+
+function barajarArray(array) {
+  var arr = array.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = arr[i]; arr[i] = arr[j]; arr[j] = temp;
+  }
+  return arr;
+}
+
+function construirStackVisual(stackId) {
+  var stack = document.getElementById(stackId);
+  if (!stack) return;
+  stack.innerHTML = "";
+  for(var s = 0; s < 6; s++) {
+    var shadowCard = document.createElement("div");
+    shadowCard.className = "stacked-shadow-card";
+    shadowCard.style.top = (s * -3) + "px"; 
+    shadowCard.style.left = (s * 2) + "px";
+    stack.appendChild(shadowCard);
+  }
+}
+
+function abrirMonton(lado) {
+  var grid = document.getElementById("deckGrid");
+  var statusBox = document.getElementById("gameStatus");
+  var pilesWrapper = document.getElementById("pilesWrapper");
+  if (!grid) return;
+  
+  cartasSeleccionadas = []; mazoElegido = lado;
+  mazoActivoAbanico = (lado === 'izq') ? mazoIzquierdo : mazoDerecho;
+  
+  for (var s = 0; s < limiteCartas; s++) {
+    var slot = document.getElementById("slot" + s);
+    if (slot) {
+      slot.classList.remove("filled");
+      slot.innerHTML = '<div style="font-size:32px;opacity:0.5;color:#a595be;"><i class="fas fa-hourglass-half"></i></div>';
+    }
+  }
+  
+  var pileLeft = document.getElementById("pileLeft"), pileRight = document.getElementById("pileRight");
+  if (lado === 'izq') {
+    pileLeft.classList.add("chosen"); pileLeft.classList.remove("discarded");
+    pileRight.classList.add("discarded"); pileRight.classList.remove("chosen");
+  } else {
+    pileRight.classList.add("chosen"); pileRight.classList.remove("discarded");
+    pileLeft.classList.add("discarded"); pileLeft.classList.remove("chosen");
+  }
+  
+  var mensajes = (lado === 'izq') ? 
+    ['<i class="fas fa-moon"></i> La intuición te guía...', '<i class="fas fa-heart"></i> Confía en tu voz interior...'] :
+    ['<i class="fas fa-bolt"></i> El destino está en tus manos...', '<i class="fas fa-fire"></i> Selecciona con determinación...'];
+  
+  if (statusBox) { 
+    statusBox.classList.add("highlight"); 
+    statusBox.innerHTML = mensajes[Math.floor(Math.random() * mensajes.length)]; 
+  }
+  
+  if (pilesWrapper) pilesWrapper.style.display = "none";
+  var wsBtn = document.getElementById("wsBtn"); if (wsBtn) wsBtn.style.display = "none";
+  
+  grid.innerHTML = "";
+  grid.classList.remove("rotating-vortex");
+  grid.style.position = "relative";
+  grid.style.display = "flex"; grid.style.flexWrap = "wrap";
+  grid.style.justifyContent = "center"; grid.style.alignItems = "center";
+  
+  var esMovil = window.innerWidth <= 420;
+  grid.style.gap = esMovil ? "8px" : "20px";
+  grid.style.padding = esMovil ? "12px" : "30px";
+  
+  var oldParticles = grid.querySelector('.mystic-particles');
+  if (oldParticles) oldParticles.remove();
+  crearParticulas(grid);
+  
+  for (var j = 0; j < mazoActivoAbanico.length; j++) {
+    var cardDiv = document.createElement("div");
+    cardDiv.className = "mini-card";
+    cardDiv.id = "deckCard_" + j;
+    cardDiv.innerHTML = '<i class="fas fa-star"></i>';
+    cardDiv.setAttribute("onclick", "clickEnCartaMazo(" + j + ")");
+    cardDiv.style.animation = "floatCard 3s ease-in-out infinite";
+    cardDiv.style.animationDelay = (j * 0.08) + "s";
+    cardDiv.style.position = "relative"; cardDiv.style.left = "auto";
+    cardDiv.style.top = "auto"; cardDiv.style.transform = "none";
+    grid.appendChild(cardDiv);
+  }
+  
+  setTimeout(function() { grid.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 200);
+}
+
+function clickEnCartaMazo(indiceMazo) {
+  if (cartasSeleccionadas.length >= limiteCartas) return;
+  var celdaCarta = document.getElementById("deckCard_" + indiceMazo);
+  if (!celdaCarta || celdaCarta.classList.contains("selected")) return;
+  
+  var objetoCarta = mazoActivoAbanico[indiceMazo];
+  cartasSeleccionadas.push(objetoCarta);
+  celdaCarta.classList.add("selected");
+  
+  var ranuraActual = cartasSeleccionadas.length - 1;
+  var slotObjetivo = document.getElementById("slot" + ranuraActual);
+  
+  if (slotObjetivo) {
+    slotObjetivo.classList.add("filled");
+    slotObjetivo.innerHTML = '<div class="card-flip-box" id="flipBox' + ranuraActual + '" style="width:100%;height:100%;">' +
+      '<div class="card-side card-side-back"><i class="fas fa-star"></i></div>' +
+      '<div class="card-side card-side-front">' +
+      '<img src="' + objetoCarta.img + '" alt="' + objetoCarta.nombre + '" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;top:0;left:0;" onerror="this.onerror=null;this.src=\'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22320%22><rect fill=%22%23170c31%22 width=%22200%22 height=%22320%22/><text fill=%22%23f3cf65%22 x=%22100%22 y=%22160%22 text-anchor=%22middle%22 font-size=%2216%22>' + encodeURIComponent(objetoCarta.nombre) + '</text></svg>\';">' +
+      '</div></div>';
+    
+    setTimeout(function() {
+      var targetBox = document.getElementById("flipBox" + ranuraActual);
+      if(targetBox) targetBox.classList.add("is-flipped");
+    }, 150);
+  }
+  
+  var zonaTapete = document.getElementById("anclajeTapete");
+  if (zonaTapete) zonaTapete.scrollIntoView({ behavior: 'smooth' });
+  
+  var statusBox = document.getElementById("gameStatus");
+  if (cartasSeleccionadas.length === limiteCartas) {
+    if (statusBox) { statusBox.classList.add("highlight"); statusBox.innerHTML = '<i class="fas fa-check-circle"></i> ¡Tirada completada!'; }
+    armarEnlaceWhatsApp();
+  } else {
+    var restantes = limiteCartas - cartasSeleccionadas.length;
+    if (statusBox) { statusBox.classList.add("highlight"); statusBox.innerHTML = '<i class="fas fa-hand-sparkles"></i> ' + cartasSeleccionadas.length + ' de ' + limiteCartas + '. Elige ' + restantes + ' más...'; }
+  }
+}
+
+function armarEnlaceWhatsApp() {
+  var cNom = document.getElementById("tName").value.trim() || "Anónimo";
+  var cFec = document.getElementById("tBirth").value.trim() || "No especificada";
+  var cPre = document.getElementById("tQuestion").value.trim() || "Lectura general";
+  var etiquetas = nombresPosiciones[limiteCartas.toString()];
+  var tipoMazo = (mazoElegido === 'izq') ? '🌙 Mazo Intuición' : '⚡ Mazo Destino';
+  
+  var msg = "🔮 *LECTURA DE TAROT* 🔮\n\n👤 *Nombre:* " + cNom + "\n📅 *Signo/Fecha:* " + cFec + "\n🎴 *Mazo:* " + tipoMazo + "\n🔮 *Consulta:* " + cPre + "\n\n🃏 *ARCANOS REVELADOS:*\n";
+  for (var m = 0; m < cartasSeleccionadas.length; m++) { msg += "  • *" + etiquetas[m] + "* → " + cartasSeleccionadas[m].nombre + "\n"; }
+  msg += "\n_Solicito mi interpretación real._";
+  
+  var link = "https://wa.me/" + TELEFONO_VIDENTE + "?text=" + encodeURIComponent(msg);
+  var btn = document.getElementById("wsBtn");
+  if (btn) { btn.href = link; btn.style.display = "block"; }
+}
+
+window.onload = function() { cambiarTipoLectura(); };
+</script>

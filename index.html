@@ -126,6 +126,68 @@
             .mini-card { width: 48px; height: 74px; }
             .cards-grid { gap: 5px; padding: 8px 3px; }
         }
+
+
+
+
+
+.menu-carrusel {
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(7, 3, 15, 0.6);
+    border-radius: 16px;
+    border: 1px solid #412375;
+    text-align: center;
+}
+.carrusel-tarjetas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+.tarjeta-enlace {
+    background: rgba(25, 13, 50, 0.5);
+    border: 1px solid #563399;
+    border-radius: 12px;
+    padding: 20px 25px;
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-width: 160px;
+}
+.tarjeta-enlace:hover {
+    border-color: #f3cf65;
+    box-shadow: 0 0 20px rgba(243,207,101,0.4);
+    transform: translateY(-5px);
+    background: rgba(34, 18, 71, 0.7);
+}
+.tarjeta-icono {
+    font-size: 28px;
+    color: #f3cf65;
+}
+.tarjeta-titulo {
+    font-size: 13px;
+    font-weight: bold;
+    color: #f3cf65;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.tarjeta-subtitulo {
+    font-size: 10px;
+    color: #cdbeea;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+
+
+        
     </style>
 </head>
 <body>
@@ -182,8 +244,43 @@
                 <i class="fab fa-whatsapp"></i> ENVIAR CONSULTA PARA SU INTERPRETACIÓN
             </a>
         </div>
+
+
+
+<div class="menu-carrusel">
+    <h3 class="section-title"><i class="fas fa-link"></i> Navegación</h3>
+    <div class="carrusel-tarjetas">
+        <a href="#" class="tarjeta-enlace">
+            <div class="tarjeta-icono"><i class="fas fa-door-open"></i></div>
+            <div class="tarjeta-titulo">NEBHULA</div>
+            <div class="tarjeta-subtitulo">Volver al mundo real</div>
+        </a>
+        <a href="#" class="tarjeta-enlace">
+            <div class="tarjeta-icono"><i class="fas fa-book-open"></i></div>
+            <div class="tarjeta-titulo">BLOG</div>
+            <div class="tarjeta-subtitulo">De los sueños</div>
+        </a>
+        <a href="#" class="tarjeta-enlace">
+            <div class="tarjeta-icono"><i class="fas fa-envelope"></i></div>
+            <div class="tarjeta-titulo">CONTACTO</div>
+            <div class="tarjeta-subtitulo">Hablar con el vidente</div>
+        </a>
+    </div>
+</div>
+
+
+
+
+        
     </div>
 
+
+
+
+
+
+
+    
     <script>
         var TELEFONO_VIDENTE = "34677163664";
         var HORAS_ESPERA = 0;

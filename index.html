@@ -139,12 +139,29 @@
     border: 1px solid #412375;
     text-align: center;
 }
-.carrusel-tarjetas {
+.carrusel-scroll {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 15px;
+    gap: 15px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 5px 15px 5px;
+    scrollbar-width: thin;
+    scrollbar-color: #563399 transparent;
+}
+.carrusel-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+.carrusel-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.carrusel-scroll::-webkit-scrollbar-thumb {
+    background: #563399;
+    border-radius: 4px;
+}
+.tarjeta-enlace {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
 }
 .tarjeta-enlace {
     background: rgba(25, 13, 50, 0.5);
@@ -249,12 +266,12 @@
 
 <div class="menu-carrusel">
     <h3 class="section-title"><i class="fas fa-link"></i> Navegación</h3>
-    <div class="carrusel-tarjetas">
+    <div class="carrusel-scroll">
         <a href="#" class="tarjeta-enlace">
-    <div class="tarjeta-icono"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEjUGy9535L65WX7wLCwZAczlIdTx4JzKt0dOmu7sk5BvY7jFSb41r49wkE_3XEG4t9I6XLQ9e2FDi2hPzTMTyUChfUKt0fRcDDSkXUbpjl8nuihTDceH6V4Gv9fwtVXYWFOpGvZd9adccVB6l_CBox7EsZHQcS-RRHU979suCfFkX5T2V5tmXomYrawRXND=s269" alt="NEBHULA" style="width:40px;height:40px;object-fit:contain;"></div>
-    <div class="tarjeta-titulo">NEBHULA</div>
-    <div class="tarjeta-subtitulo">Volver al mundo real</div>
-</a>
+            <div class="tarjeta-icono"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEjUGy9535L65WX7wLCwZAczlIdTx4JzKt0dOmu7sk5BvY7jFSb41r49wkE_3XEG4t9I6XLQ9e2FDi2hPzTMTyUChfUKt0fRcDDSkXUbpjl8nuihTDceH6V4Gv9fwtVXYWFOpGvZd9adccVB6l_CBox7EsZHQcS-RRHU979suCfFkX5T2V5tmXomYrawRXND=s269" alt="NEBHULA" style="width:40px;height:40px;object-fit:contain;"></div>
+            <div class="tarjeta-titulo">NEBHULA</div>
+            <div class="tarjeta-subtitulo">Volver al mundo real</div>
+        </a>
         <a href="#" class="tarjeta-enlace">
             <div class="tarjeta-icono"><i class="fas fa-book-open"></i></div>
             <div class="tarjeta-titulo">BLOG</div>
@@ -263,7 +280,7 @@
         <a href="#" class="tarjeta-enlace">
             <div class="tarjeta-icono"><i class="fas fa-envelope"></i></div>
             <div class="tarjeta-titulo">CONTACTO</div>
-            <div class="tarjeta-subtitulo">Dudas e información</div>
+            <div class="tarjeta-subtitulo">Hablar con el vidente</div>
         </a>
     </div>
 </div>

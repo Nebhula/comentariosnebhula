@@ -78,7 +78,6 @@
         }
         .slot-pyramid.completed { animation: pulseSlot 2s ease-in-out infinite; }
 
-        /* Placeholder (vacío) */
         .slot-placeholder { 
             display: flex;
             flex-direction: column;
@@ -141,7 +140,6 @@
             z-index: 2;
         }
 
-        /* Cuando está lleno - la carta ocupa todo el slot */
         .slot-pyramid.filled {
             padding: 0;
             display: block;
@@ -161,7 +159,6 @@
             50% { box-shadow: 0 0 50px rgba(255,255,255,0.6); }
         }
 
-        /* FLIP CARD */
         .card-flip-box { 
             width: 100%; 
             height: 100%; 
@@ -183,7 +180,6 @@
             top: 0;
             left: 0;
         }
-        /* DORSO (parte trasera) */
         .card-side-back { 
             background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
             background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
@@ -213,7 +209,6 @@
             position: relative;
             z-index: 2;
         }
-        /* FRENTE (la carta que se ve al voltear) */
         .card-side-front { 
             transform: rotateY(180deg); 
             background: #000;
@@ -434,19 +429,20 @@
         
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
+        // 🃏 MAZO COMPLETO CON IMÁGENES REALES (Ladón y Nidhogg)
         var oraculo = [
             { id: 1, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
             { id: 2, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 3, nombre: "El Viajero", img: "https://via.placeholder.com/200x300?text=Viajero" },
-            { id: 4, nombre: "La Puerta", img: "https://via.placeholder.com/200x300?text=Puerta" },
-            { id: 5, nombre: "El Espejo", img: "https://via.placeholder.com/200x300?text=Espejo" },
-            { id: 6, nombre: "La Serpiente", img: "https://via.placeholder.com/200x300?text=Serpiente" },
-            { id: 7, nombre: "El Águila", img: "https://via.placeholder.com/200x300?text=Aguila" },
-            { id: 8, nombre: "La Luna", img: "https://via.placeholder.com/200x300?text=Luna" },
-            { id: 9, nombre: "El Sol", img: "https://via.placeholder.com/200x300?text=Sol" },
-            { id: 10, nombre: "El Laberinto", img: "https://via.placeholder.com/200x300?text=Laberinto" },
-            { id: 11, nombre: "La Llave", img: "https://via.placeholder.com/200x300?text=Llave" },
-            { id: 12, nombre: "El Puente", img: "https://via.placeholder.com/200x300?text=Puente" }
+            { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
+            { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
+            { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
+            { id: 6, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
+            { id: 7, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
+            { id: 8, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
+            { id: 9, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
+            { id: 10, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
+            { id: 11, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
+            { id: 12, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" }
         ];
 
         var mazoActivo = [], cartasSeleccionadas = [], limiteCartas = 3;

@@ -27,7 +27,6 @@
         .tarot-subtitle { color: #b4a5cb; font-size: 13px; font-style: italic; }
         .section-title { color: #ffffff; font-size: 16px; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #412375; padding-bottom: 8px; text-align: center; }
 
-        /* INSTRUCCIONES */
         .instrucciones-container {
             background: rgba(25, 13, 50, 0.6);
             padding: 25px;
@@ -37,85 +36,25 @@
             text-align: center;
             backdrop-filter: blur(5px);
         }
-        .instrucciones-container h3 {
-            color: #ffffff;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        .paso {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .paso-icono {
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #ffffff;
-        }
-        .paso-texto {
-            font-size: 14px;
-            color: #cdbeea;
-            max-width: 250px;
-            text-align: left;
-        }
-        .frase-meditacion {
-            font-style: italic;
-            color: #ffffff;
-            margin: 20px 0 10px 0;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-        .btn-comenzar {
-            background: linear-gradient(135deg, #cccccc 0%, #888888 100%);
-            color: #07030f;
-            border: none;
-            padding: 16px 40px;
-            font-size: 16px;
-            font-family: 'Cinzel', serif;
-            font-weight: bold;
-            border-radius: 40px;
-            cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        .btn-comenzar:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(255,255,255,0.5);
-        }
+        .instrucciones-container h3 { color: #ffffff; margin-bottom: 15px; font-size: 18px; }
+        .paso { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
+        .paso-icono { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #ffffff; }
+        .paso-texto { font-size: 14px; color: #cdbeea; max-width: 250px; text-align: left; }
+        .frase-meditacion { font-style: italic; color: #ffffff; margin: 20px 0 10px 0; font-size: 16px; letter-spacing: 1px; }
+        .btn-comenzar { background: linear-gradient(135deg, #cccccc 0%, #888888 100%); color: #07030f; border: none; padding: 16px 40px; font-size: 16px; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 40px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255,255,255,0.3); letter-spacing: 2px; transition: all 0.3s ease; margin-top: 10px; }
+        .btn-comenzar:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,255,255,0.5); }
 
         .tarot-tapete-zone { background: rgba(15, 7, 30, 0.5); padding: 20px; border-radius: 16px; border: 1px dashed #412375; margin-bottom: 25px; text-align: center; position: relative; display: none; }
         .status-box { background: #07030f; padding: 12px 18px; border-radius: 8px; border-left: 3px solid #ffffff; color: #ded4ef; font-size: 12px; display: inline-block; margin-bottom: 18px; min-width: 280px; max-width: 600px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .status-box.highlight { border-left-color: #ffffff; background: #1f1042; color: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
 
-        .carta-unica-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 450px;
-            margin: 20px 0;
-        }
+        .carta-unica-container { display: flex; justify-content: center; align-items: center; min-height: 500px; margin: 20px 0; }
         .slot-carta {
-            width: 300px;
-            height: 420px;
+            width: 320px;
+            height: 450px;
             border: none;
             border-radius: 20px;
             background: rgba(25, 13, 50, 0.4);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             transition: all 0.4s ease;
             position: relative;
             cursor: pointer;
@@ -124,11 +63,11 @@
         }
         
         @media (max-width: 650px) {
-            .slot-carta { width: 240px; height: 336px; }
+            .slot-carta { width: 280px; height: 394px; }
         }
         
         @media (max-width: 480px) {
-            .slot-carta { width: 200px; height: 280px; }
+            .slot-carta { width: 260px; height: 366px; }
         }
 
         .slot-carta:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
@@ -151,7 +90,7 @@
             align-items: center;
             justify-content: center;
             background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
             border-radius: 18px;
             position: relative;
         }
@@ -162,13 +101,13 @@
             left: 8px;
             right: 8px;
             bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 12px;
             pointer-events: none;
         }
         .slot-placeholder img { 
-            width: 100px; 
-            height: 100px; 
+            width: 80px; 
+            height: 80px; 
             object-fit: contain; 
             opacity: 0.9;
             margin-bottom: 15px;
@@ -176,6 +115,9 @@
             filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
             position: relative;
             z-index: 2;
+        }
+        @media (max-width: 480px) {
+            .slot-placeholder img { width: 60px; height: 60px; }
         }
         .slot-placeholder .slot-name { 
             font-size: 16px; 
@@ -187,16 +129,12 @@
             position: relative;
             z-index: 2;
         }
+        @media (max-width: 480px) {
+            .slot-placeholder .slot-name { font-size: 14px; }
+        }
 
-        .slot-carta.filled {
-            padding: 0;
-            display: block;
-        }
-        .slot-carta.filled .card-flip-box {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
+        .slot-carta.filled { padding: 0; display: block; }
+        .slot-carta.filled .card-flip-box { width: 100%; height: 100%; position: relative; }
         .slot-carta.filled .slot-placeholder { display: none; }
 
         .card-flip-box { 
@@ -220,7 +158,7 @@
         }
         .card-side-back { 
             background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
             display: flex; 
             align-items: center; 
             justify-content: center;
@@ -233,7 +171,7 @@
             left: 10px;
             right: 10px;
             bottom: 10px;
-            border: 1px solid rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
             border-radius: 10px;
             pointer-events: none;
         }
@@ -246,6 +184,9 @@
             filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
             position: relative;
             z-index: 2;
+        }
+        @media (max-width: 480px) {
+            .card-side-back img { width: 60%; height: 60%; }
         }
         .card-side-front { 
             transform: rotateY(180deg); 
@@ -266,20 +207,19 @@
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
-            gap: 15px; 
+            gap: 12px; 
             margin-top: 15px; 
             min-height: 400px; 
             padding: 15px 10px; 
             background: rgba(0,0,0,0.3); 
             border-radius: 16px; 
             border: 1px solid rgba(65, 35, 117, 0.3); 
-            position: relative; 
         }
 
-        /* CARTAS DEL MAZO MÁS GRANDES */
+        /* CARTAS DEL MAZO - TAMAÑO OPTIMIZADO */
         .mini-card {
-            width: 110px;
-            height: 165px;
+            width: 100px;
+            height: 150px;
             border-radius: 12px;
             cursor: pointer;
             display: flex;
@@ -288,7 +228,7 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.6);
             transition: all 0.3s ease;
             background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
+            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
             position: relative;
         }
         .mini-card::before {
@@ -298,13 +238,13 @@
             left: 6px;
             right: 6px;
             bottom: 6px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
             border-radius: 8px;
             pointer-events: none;
         }
         
         @media (max-width: 550px) {
-            .mini-card { width: 90px; height: 135px; }
+            .mini-card { width: 85px; height: 127px; }
         }
         
         @media (max-width: 400px) {
@@ -312,8 +252,8 @@
         }
         
         .mini-card img { 
-            width: 60px; 
-            height: 60px; 
+            width: 45px; 
+            height: 45px; 
             object-fit: contain; 
             opacity: 0.9;
             border-radius: 10px;
@@ -321,6 +261,10 @@
             position: relative;
             z-index: 2;
         }
+        @media (max-width: 550px) {
+            .mini-card img { width: 38px; height: 38px; }
+        }
+        
         .mini-card:hover { 
             transform: translateY(-12px) scale(1.05) !important; 
             z-index: 20; 
@@ -347,9 +291,7 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .mensaje-redireccion i {
-            margin-right: 8px;
-        }
+        .mensaje-redireccion i { margin-right: 8px; }
 
         .menu-carrusel {
             margin-top: 30px; padding: 20px;
@@ -388,7 +330,6 @@
             <p class="tarot-subtitle">Tirada de Una Carta · Mensaje del Subconsciente</p>
         </div>
 
-        <!-- INSTRUCCIONES -->
         <div class="instrucciones-container" id="instruccionesContainer">
             <h3><i class="fas fa-moon"></i> Antes de comenzar</h3>
             <div class="paso">
@@ -457,22 +398,10 @@
     <script>
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
-        // 🃏 MAZO CON 12 CARTAS (Ladón y Nidhogg alternados)
+        // 12 CARTAS
         var oraculo = [
-            { 
-                id: 1, 
-                nombre: "Ladón", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png",
-                palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián",
-                enlace: "https://nebhula.com/carta/ladon"
-            },
-            { 
-                id: 2, 
-                nombre: "Nidhogg", 
-                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png",
-                palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior",
-                enlace: "https://nebhula.com/carta/nidhogg"
-            },
+            { id: 1, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 2, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
             { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
             { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
             { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
@@ -488,8 +417,8 @@
         var mazoActivo = [], cartaSeleccionada = null;
         var barajando = false;
         var audioCtx = null;
-
         var vozEspañol = null;
+
         function iniciarVoz() {
             if (vozEspañol) return;
             var voces = speechSynthesis.getVoices();
@@ -634,7 +563,6 @@
             
             mazoActivo = barajarArray(oraculo);
             grid.innerHTML = "";
-            grid.style.cssText = "display:flex;flex-wrap:wrap;justify-content:center;gap:15px;min-height:400px;padding:15px 10px;background:rgba(0,0,0,0.3);border-radius:16px;border:1px solid rgba(65,35,117,0.3);";
             
             for (var j = 0; j < mazoActivo.length; j++) {
                 var cd = document.createElement("div");
@@ -646,57 +574,13 @@
             }
             
             sonidoBarajar();
-            mezclaReal(grid, function() {
+            setTimeout(function() {
                 barajando = false;
                 if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-hand-pointer"></i> Elige una carta, la que más te llame la atención.'; }
                 if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA UNA CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>';
                 hablarTexto("Elige una carta, la que más te llame la atención.");
-            });
+            }, 800);
             grid.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function mezclaReal(grid, cb) {
-            var cards = Array.from(grid.querySelectorAll('.mini-card')), ciclos = 6, actual = 0;
-            var pos = [];
-            cards.forEach(function(c, i) { pos.push(i); });
-            function ciclo() {
-                if (actual >= ciclos) { if(cb) cb(); return; }
-                var np = pos.slice();
-                for (var i = np.length-1; i > 0; i--) {
-                    var j = Math.floor(Math.random() * (i+1));
-                    var t = np[i];
-                    np[i] = np[j];
-                    np[j] = t;
-                }
-                cards.forEach(function(card, idx) {
-                    var target = cards[np[idx]];
-                    if (card === target) return;
-                    var r1 = card.getBoundingClientRect(), r2 = target.getBoundingClientRect();
-                    card.style.transition = 'transform 0.3s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.3s';
-                    card.style.transform = 'translate(' + (r2.left-r1.left) + 'px,' + (r2.top-r1.top) + 'px) scale(1.1) rotate(' + (Math.random()*20-10) + 'deg)';
-                    card.style.zIndex = '30';
-                    card.style.boxShadow = '0 0 25px rgba(255,255,255,0.6)';
-                });
-                setTimeout(function() {
-                    var f = document.createDocumentFragment(), ord = [];
-                    for (var i = 0; i < np.length; i++) ord.push(cards[np[i]]);
-                    ord.forEach(function(c) { f.appendChild(c); });
-                    grid.appendChild(f);
-                    cards.forEach(function(c) {
-                        c.style.transition = 'transform 0.15s ease, box-shadow 0.15s';
-                        c.style.transform = 'translate(0,0) scale(1) rotate(0deg)';
-                        c.style.zIndex = '1';
-                        c.style.boxShadow = '0 4px 10px rgba(0,0,0,0.5)';
-                    });
-                    setTimeout(function() {
-                        cards = Array.from(grid.querySelectorAll('.mini-card'));
-                        pos = np.slice();
-                        actual++;
-                        ciclo();
-                    }, 180);
-                }, 350);
-            }
-            ciclo();
         }
 
         function clickEnCarta(indice) {

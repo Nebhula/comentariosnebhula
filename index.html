@@ -103,14 +103,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 350px;
+            min-height: 450px;
             margin: 20px 0;
         }
         .slot-carta {
-            width: 250px;
-            height: 350px;
+            width: 300px;
+            height: 420px;
             border: none;
-            border-radius: 16px;
+            border-radius: 20px;
             background: rgba(25, 13, 50, 0.4);
             display: flex;
             flex-direction: column;
@@ -124,11 +124,11 @@
         }
         
         @media (max-width: 650px) {
-            .slot-carta { width: 200px; height: 280px; }
+            .slot-carta { width: 240px; height: 336px; }
         }
         
         @media (max-width: 480px) {
-            .slot-carta { width: 170px; height: 240px; }
+            .slot-carta { width: 200px; height: 280px; }
         }
 
         .slot-carta:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
@@ -152,33 +152,33 @@
             justify-content: center;
             background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
             background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
-            border-radius: 14px;
+            border-radius: 18px;
             position: relative;
         }
         .slot-placeholder .card-back-texture::before {
             content: "";
             position: absolute;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
             border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 10px;
+            border-radius: 12px;
             pointer-events: none;
         }
         .slot-placeholder img { 
-            width: 80px; 
-            height: 80px; 
+            width: 100px; 
+            height: 100px; 
             object-fit: contain; 
             opacity: 0.9;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             border-radius: 12px;
             filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
             position: relative;
             z-index: 2;
         }
         .slot-placeholder .slot-name { 
-            font-size: 14px; 
+            font-size: 16px; 
             color: #ffffff; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
@@ -205,7 +205,7 @@
             position: relative; 
             transform-style: preserve-3d; 
             transition: transform 1.2s cubic-bezier(0.25, 0.1, 0.1, 1); 
-            border-radius: 14px;
+            border-radius: 18px;
         }
         .card-flip-box.is-flipped { transform: rotateY(180deg); }
         .card-side { 
@@ -213,7 +213,7 @@
             width: 100%; 
             height: 100%; 
             backface-visibility: hidden; 
-            border-radius: 14px; 
+            border-radius: 18px; 
             overflow: hidden;
             top: 0;
             left: 0;
@@ -229,12 +229,12 @@
         .card-side-back::before {
             content: "";
             position: absolute;
-            top: 8px;
-            left: 8px;
-            right: 8px;
-            bottom: 8px;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
             border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 8px;
+            border-radius: 10px;
             pointer-events: none;
         }
         .card-side-back img { 
@@ -250,7 +250,7 @@
         .card-side-front { 
             transform: rotateY(180deg); 
             background: #000;
-            border-radius: 14px;
+            border-radius: 18px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -266,9 +266,9 @@
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
-            gap: 12px; 
+            gap: 15px; 
             margin-top: 15px; 
-            min-height: 350px; 
+            min-height: 400px; 
             padding: 15px 10px; 
             background: rgba(0,0,0,0.3); 
             border-radius: 16px; 
@@ -276,10 +276,11 @@
             position: relative; 
         }
 
+        /* CARTAS DEL MAZO MÁS GRANDES */
         .mini-card {
-            width: 85px;
-            height: 130px;
-            border-radius: 10px;
+            width: 110px;
+            height: 165px;
+            border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -293,31 +294,35 @@
         .mini-card::before {
             content: "";
             position: absolute;
-            top: 4px;
-            left: 4px;
-            right: 4px;
-            bottom: 4px;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 6px;
+            border-radius: 8px;
             pointer-events: none;
         }
         
         @media (max-width: 550px) {
-            .mini-card { width: 70px; height: 105px; }
+            .mini-card { width: 90px; height: 135px; }
+        }
+        
+        @media (max-width: 400px) {
+            .mini-card { width: 75px; height: 112px; }
         }
         
         .mini-card img { 
-            width: 50px; 
-            height: 50px; 
+            width: 60px; 
+            height: 60px; 
             object-fit: contain; 
             opacity: 0.9;
-            border-radius: 8px;
+            border-radius: 10px;
             filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
             position: relative;
             z-index: 2;
         }
         .mini-card:hover { 
-            transform: translateY(-12px) scale(1.1) !important; 
+            transform: translateY(-12px) scale(1.05) !important; 
             z-index: 20; 
             box-shadow: 0 12px 30px rgba(255,255,255,0.5);
         }
@@ -374,8 +379,6 @@
         .tarjeta-icono { font-size: 28px; color: #ffffff; }
         .tarjeta-titulo { font-size: 13px; font-weight: bold; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; }
         .tarjeta-subtitulo { font-size: 10px; color: #cdbeea; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        .contador-tiradas { text-align: center; font-size: 10px; color: #a595be; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -385,7 +388,7 @@
             <p class="tarot-subtitle">Tirada de Una Carta · Mensaje del Subconsciente</p>
         </div>
 
-        <!-- INSTRUCCIONES EN VEZ DE FORMULARIO -->
+        <!-- INSTRUCCIONES -->
         <div class="instrucciones-container" id="instruccionesContainer">
             <h3><i class="fas fa-moon"></i> Antes de comenzar</h3>
             <div class="paso">
@@ -454,7 +457,7 @@
     <script>
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
-        // 🃏 MAZO
+        // 🃏 MAZO CON 12 CARTAS (Ladón y Nidhogg alternados)
         var oraculo = [
             { 
                 id: 1, 
@@ -470,24 +473,20 @@
                 palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior",
                 enlace: "https://nebhula.com/carta/nidhogg"
             },
-            { 
-                id: 3, 
-                nombre: "El Viajero", 
-                img: "https://via.placeholder.com/300x400?text=Viajero",
-                palabrasClave: "Camino · Aventura · Descubrimiento · Nuevos horizontes",
-                enlace: "https://nebhula.com/carta/viajero"
-            },
-            { 
-                id: 4, 
-                nombre: "La Puerta", 
-                img: "https://via.placeholder.com/300x400?text=Puerta",
-                palabrasClave: "Oportunidad · Transición · Decisiones · Nuevo comienzo",
-                enlace: "https://nebhula.com/carta/puerta"
-            }
+            { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 6, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 7, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 8, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 9, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 10, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 11, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 12, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" }
         ];
 
         var mazoActivo = [], cartaSeleccionada = null;
-        var barajando = false, tiradaCompletada = false;
+        var barajando = false;
         var audioCtx = null;
 
         var vozEspañol = null;
@@ -602,12 +601,9 @@
         }
 
         function iniciarTirada() {
-            // Ocultar instrucciones
             document.getElementById("instruccionesContainer").style.display = "none";
-            // Mostrar zonas de juego
             document.getElementById("anclajeTapete").style.display = "block";
             document.getElementById("anclajeMazo").style.display = "block";
-            
             crearSlotCarta();
             arrancarMazo();
         }
@@ -617,7 +613,6 @@
             if (barajando) return;
             barajando = true;
             cartaSeleccionada = null;
-            tiradaCompletada = false;
             var grid = document.getElementById("deckGrid");
             if (!grid) return;
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
@@ -639,7 +634,7 @@
             
             mazoActivo = barajarArray(oraculo);
             grid.innerHTML = "";
-            grid.style.cssText = "display:flex;flex-wrap:wrap;justify-content:center;gap:12px;min-height:350px;padding:15px 10px;background:rgba(0,0,0,0.3);border-radius:16px;border:1px solid rgba(65,35,117,0.3);";
+            grid.style.cssText = "display:flex;flex-wrap:wrap;justify-content:center;gap:15px;min-height:400px;padding:15px 10px;background:rgba(0,0,0,0.3);border-radius:16px;border:1px solid rgba(65,35,117,0.3);";
             
             for (var j = 0; j < mazoActivo.length; j++) {
                 var cd = document.createElement("div");

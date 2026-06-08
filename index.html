@@ -216,7 +216,6 @@
             border: 1px solid rgba(65, 35, 117, 0.3); 
         }
 
-        /* CARTAS DEL MAZO - TAMAÑO OPTIMIZADO */
         .mini-card {
             width: 100px;
             height: 150px;
@@ -520,6 +519,50 @@
             return arr;
         }
 
+        function mezclaReal(grid, cb) {
+            var cards = Array.from(grid.querySelectorAll('.mini-card')), ciclos = 5, actual = 0;
+            var pos = [];
+            cards.forEach(function(c, i) { pos.push(i); });
+            function ciclo() {
+                if (actual >= ciclos) { if(cb) cb(); return; }
+                var np = pos.slice();
+                for (var i = np.length-1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i+1));
+                    var t = np[i];
+                    np[i] = np[j];
+                    np[j] = t;
+                }
+                cards.forEach(function(card, idx) {
+                    var target = cards[np[idx]];
+                    if (card === target) return;
+                    var r1 = card.getBoundingClientRect(), r2 = target.getBoundingClientRect();
+                    card.style.transition = 'transform 0.25s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.25s';
+                    card.style.transform = 'translate(' + (r2.left-r1.left) + 'px,' + (r2.top-r1.top) + 'px) scale(1.05) rotate(' + (Math.random()*15-7) + 'deg)';
+                    card.style.zIndex = '30';
+                    card.style.boxShadow = '0 0 20px rgba(255,255,255,0.6)';
+                });
+                setTimeout(function() {
+                    var f = document.createDocumentFragment(), ord = [];
+                    for (var i = 0; i < np.length; i++) ord.push(cards[np[i]]);
+                    ord.forEach(function(c) { f.appendChild(c); });
+                    grid.appendChild(f);
+                    cards.forEach(function(c) {
+                        c.style.transition = 'transform 0.12s ease, box-shadow 0.12s';
+                        c.style.transform = 'translate(0,0) scale(1) rotate(0deg)';
+                        c.style.zIndex = '1';
+                        c.style.boxShadow = '0 4px 10px rgba(0,0,0,0.5)';
+                    });
+                    setTimeout(function() {
+                        cards = Array.from(grid.querySelectorAll('.mini-card'));
+                        pos = np.slice();
+                        actual++;
+                        ciclo();
+                    }, 140);
+                }, 280);
+            }
+            ciclo();
+        }
+
         function crearSlotCarta() {
             var slot = document.getElementById("slotCarta");
             if (!slot) return;
@@ -547,6 +590,8 @@
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
             if (sb) { sb.classList.remove("highlight"); sb.innerHTML = '<i class="fas fa-wind"></i> Mezclando las cartas...'; }
             if (inst) inst.innerHTML = '<i class="fas fa-wind"></i> Mezclando...';
+            
+            // 🔥 VOZ DE MEZCLA
             hablarTexto("Mezclando las cartas del oráculo.");
             
             var slot = document.getElementById("slotCarta");
@@ -574,12 +619,15 @@
             }
             
             sonidoBarajar();
-            setTimeout(function() {
+            
+            // Mezcla visual
+            mezclaReal(grid, function() {
                 barajando = false;
                 if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-hand-pointer"></i> Elige una carta, la que más te llame la atención.'; }
                 if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA UNA CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>';
+                // 🔥 VOZ DE ELEGIR CARTA (después de la mezcla)
                 hablarTexto("Elige una carta, la que más te llame la atención.");
-            }, 800);
+            });
             grid.scrollIntoView({ behavior: 'smooth' });
         }
 

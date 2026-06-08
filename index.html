@@ -310,9 +310,11 @@
         var IMAGEN_TEMPORAL = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhwCaxJhtnLruTPz99yqEwcUe-P9RjWPmLbaPoYJH656pE-XhF89kkkqYBZcdgFqPCWt6Y2jZQTnqM_4ofxyp1qTy5R15hxsOlKu8Z7tpNo6M2cPWsokV7U3Ub29Uie50AIII1xYvjasm0YWNEdz-n8E2rf_nHJFsJlC_pjwPIx6jA0HUj0pOCJByept6mr/s1600/laluna.png";
         var ICONO_PIRAMIDE = "https://png.pngtree.com/png-clipart/20231012/original/pngtree-yellow-pyramid-geometrical-picture-image_13132988.png";
 
-        var oraculo = [];
-        for (var i = 0; i < 100; i++) { oraculo.push({ id: i, img: IMAGEN_TEMPORAL }); }
-
+       var oraculo = [
+    { id: 0, nombre: "El Viajero", img: "URL_DE_TU_CARTA_0.png" },
+    { id: 1, nombre: "La Puerta", img: "URL_DE_TU_CARTA_1.png" },
+    // ... pones tus 100 cartas aquí con su nombre y su imagen
+];
         var mazoActivo = [], cartasSeleccionadas = [], limiteCartas = 6;
         var barajando = false, tiradaCompletada = false;
         var audioCtx = null;

@@ -2,76 +2,227 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Oráculo de Nebhula - Tirada de Una Carta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Cinzel', 'Georgia', serif;
-            background: radial-gradient(circle at center, #1b0e3a 0%, #07030f 100%);
+            font-family: 'Inter', 'Cinzel', serif;
+            background: linear-gradient(135deg, #0f0c1f 0%, #1a0f2e 50%, #0b0719 100%);
             color: #fff;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Estrellas de fondo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 60px 90px, #f3cf65, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 120px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 200px 150px, #b4a5cb, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 80px, #fff, rgba(0,0,0,0));
+            background-size: 400px 400px;
+            background-repeat: repeat;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        .tarot-app-container { width: 100%; min-height: 100vh; padding: 20px 10px; }
+        .tarot-app-container { 
+            width: 100%; 
+            min-height: 100vh; 
+            padding: 16px 12px; 
+            position: relative;
+            z-index: 1;
+        }
 
-        .tarot-header { text-align: center; margin-bottom: 25px; }
-        .tarot-title { color: #ffffff; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .tarot-title img { width: 40px; height: 40px; object-fit: contain; vertical-align: middle; border-radius: 8px; filter: brightness(0) invert(1); }
-        .tarot-subtitle { color: #b4a5cb; font-size: 13px; font-style: italic; }
-        .section-title { color: #ffffff; font-size: 16px; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #412375; padding-bottom: 8px; text-align: center; }
-
-        .instrucciones-container {
-            background: rgba(25, 13, 50, 0.6);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 25px;
+        /* HEADER */
+        .tarot-header { text-align: center; margin-bottom: 20px; }
+        .tarot-title { 
+            color: #ffffff; 
+            font-size: 18px; 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+        .tarot-title img { 
+            width: 35px; 
+            height: 35px; 
+            object-fit: contain; 
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            padding: 5px;
+        }
+        .tarot-subtitle { 
+            color: #b4a5cb; 
+            font-size: 11px; 
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .section-title { 
+            color: #ffffff; 
+            font-size: 14px; 
+            margin: 0 0 15px 0; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            border-bottom: 1px solid rgba(180,165,203,0.3); 
+            padding-bottom: 6px; 
             text-align: center;
-            backdrop-filter: blur(5px);
+            font-weight: 500;
         }
-        .instrucciones-container h3 { color: #ffffff; margin-bottom: 15px; font-size: 18px; }
-        .paso { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 20px 0; flex-wrap: wrap; }
-        .paso-icono { width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #ffffff; }
-        .paso-texto { font-size: 14px; color: #cdbeea; max-width: 250px; text-align: left; }
-        .frase-meditacion { font-style: italic; color: #ffffff; margin: 20px 0 10px 0; font-size: 16px; letter-spacing: 1px; }
-        .btn-comenzar { background: linear-gradient(135deg, #cccccc 0%, #888888 100%); color: #07030f; border: none; padding: 16px 40px; font-size: 16px; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 40px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255,255,255,0.3); letter-spacing: 2px; transition: all 0.3s ease; margin-top: 10px; }
-        .btn-comenzar:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,255,255,0.5); }
 
-        .tarot-tapete-zone { background: rgba(15, 7, 30, 0.5); padding: 20px; border-radius: 16px; border: 1px dashed #412375; margin-bottom: 25px; text-align: center; position: relative; display: none; }
-        .status-box { background: #07030f; padding: 12px 18px; border-radius: 8px; border-left: 3px solid #ffffff; color: #ded4ef; font-size: 12px; display: inline-block; margin-bottom: 18px; min-width: 280px; max-width: 600px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
-        .status-box.highlight { border-left-color: #ffffff; background: #1f1042; color: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
+        /* INSTRUCCIONES */
+        .instrucciones-container {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .instrucciones-container h3 {
+            color: #f3cf65;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-family: 'Cinzel', serif;
+        }
+        .paso { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            margin: 15px 0; 
+            flex-wrap: wrap; 
+        }
+        .paso-icono { 
+            width: 40px; 
+            height: 40px; 
+            background: rgba(243,207,101,0.15);
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 18px; 
+            color: #f3cf65; 
+        }
+        .paso-texto { 
+            font-size: 13px; 
+            color: #cdbeea; 
+            max-width: 220px; 
+            text-align: left;
+            font-weight: 300;
+        }
+        .frase-meditacion { 
+            font-style: italic; 
+            color: #f3cf65; 
+            margin: 15px 0 10px 0; 
+            font-size: 13px; 
+            letter-spacing: 1px;
+            font-family: 'Cinzel', serif;
+        }
+        .btn-comenzar { 
+            background: linear-gradient(135deg, #f3cf65 0%, #c9a53b 100%);
+            color: #0f0c1f; 
+            border: none; 
+            padding: 14px 30px; 
+            font-size: 14px; 
+            font-family: 'Cinzel', serif; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            box-shadow: 0 4px 15px rgba(243,207,101,0.3);
+            letter-spacing: 2px; 
+            transition: all 0.3s ease; 
+            margin-top: 10px;
+            width: 100%;
+            max-width: 250px;
+        }
+        .btn-comenzar:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(243,207,101,0.5);
+        }
 
-        .carta-unica-container { display: flex; justify-content: center; align-items: center; min-height: 500px; margin: 20px 0; }
+        /* ZONA DE CARTA */
+        .tarot-tapete-zone { 
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(5px);
+            padding: 16px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 20px; 
+            text-align: center; 
+            display: none; 
+        }
+        .status-box { 
+            background: rgba(0,0,0,0.5); 
+            padding: 10px 16px; 
+            border-radius: 12px; 
+            border-left: 3px solid #f3cf65; 
+            color: #ded4ef; 
+            font-size: 11px; 
+            display: inline-block; 
+            margin-bottom: 15px; 
+            width: 100%;
+            max-width: 100%;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .status-box.highlight { 
+            border-left-color: #f3cf65; 
+            background: rgba(243,207,101,0.1); 
+            color: #fff; 
+        }
+
+        .carta-unica-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin: 15px 0; 
+        }
         .slot-carta {
-            width: 320px;
-            height: 450px;
+            width: 280px;
+            height: 394px;
             border: none;
             border-radius: 20px;
-            background: rgba(25, 13, 50, 0.4);
+            background: rgba(25, 13, 50, 0.5);
             transition: all 0.4s ease;
             position: relative;
             cursor: pointer;
             overflow: hidden;
             margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         
         @media (max-width: 650px) {
-            .slot-carta { width: 280px; height: 394px; }
+            .slot-carta { width: 260px; height: 366px; }
         }
         
         @media (max-width: 480px) {
-            .slot-carta { width: 260px; height: 366px; }
+            .slot-carta { width: 240px; height: 338px; }
         }
 
-        .slot-carta:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
-        .slot-carta.filled { background: #0a0520; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
+        .slot-carta:hover { transform: translateY(-5px); }
+        .slot-carta.filled { background: #0a0520; box-shadow: 0 0 30px rgba(243,207,101,0.3); }
 
         .slot-placeholder { 
             display: flex;
@@ -89,8 +240,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
+            background: linear-gradient(135deg, rgba(42,26,74,0.8), rgba(15,7,37,0.9));
+            backdrop-filter: blur(5px);
             border-radius: 18px;
             position: relative;
         }
@@ -101,36 +252,29 @@
             left: 8px;
             right: 8px;
             bottom: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(243,207,101,0.2);
             border-radius: 12px;
             pointer-events: none;
         }
         .slot-placeholder img { 
-            width: 80px; 
-            height: 80px; 
+            width: 65px; 
+            height: 65px; 
             object-fit: contain; 
             opacity: 0.9;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-radius: 12px;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.4));
-            position: relative;
-            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(243,207,101,0.4));
         }
         @media (max-width: 480px) {
-            .slot-placeholder img { width: 60px; height: 60px; }
+            .slot-placeholder img { width: 50px; height: 50px; }
         }
         .slot-placeholder .slot-name { 
-            font-size: 16px; 
-            color: #ffffff; 
+            font-size: 14px; 
+            color: #f3cf65; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
             font-weight: bold; 
-            text-shadow: 0 0 6px rgba(255,255,255,0.4);
-            position: relative;
-            z-index: 2;
-        }
-        @media (max-width: 480px) {
-            .slot-placeholder .slot-name { font-size: 14px; }
+            font-family: 'Cinzel', serif;
         }
 
         .slot-carta.filled { padding: 0; display: block; }
@@ -142,7 +286,7 @@
             height: 100%; 
             position: relative; 
             transform-style: preserve-3d; 
-            transition: transform 1.2s cubic-bezier(0.25, 0.1, 0.1, 1); 
+            transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.1, 1); 
             border-radius: 18px;
         }
         .card-flip-box.is-flipped { transform: rotateY(180deg); }
@@ -157,8 +301,7 @@
             left: 0;
         }
         .card-side-back { 
-            background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
+            background: linear-gradient(135deg, #2a1a4a, #0f0725);
             display: flex; 
             align-items: center; 
             justify-content: center;
@@ -171,162 +314,184 @@
             left: 10px;
             right: 10px;
             bottom: 10px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(243,207,101,0.2);
             border-radius: 10px;
             pointer-events: none;
         }
         .card-side-back img { 
-            width: 70%; 
-            height: 70%; 
+            width: 60%; 
+            height: 60%; 
             object-fit: contain; 
             opacity: 0.95;
-            border-radius: 12px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
-            position: relative;
-            z-index: 2;
-        }
-        @media (max-width: 480px) {
-            .card-side-back img { width: 60%; height: 60%; }
+            filter: drop-shadow(0 0 15px rgba(243,207,101,0.5));
         }
         .card-side-front { 
             transform: rotateY(180deg); 
             background: #000;
             border-radius: 18px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
-        .card-side-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .card-side-front img { width: 100%; height: 100%; object-fit: cover; }
 
-        .deck-container { background: rgba(7, 3, 15, 0.6); padding: 15px 10px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 25px; text-align: center; display: none; }
-        .action-trigger-zone { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .instruccion-baraja { color: #cdbeea; font-size: 12px; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+        /* MAZO DE CARTAS */
+        .deck-container { 
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(5px);
+            padding: 16px 10px; 
+            border-radius: 24px; 
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 20px; 
+            text-align: center; 
+            display: none; 
+        }
+        .instruccion-baraja { 
+            color: #cdbeea; 
+            font-size: 11px; 
+            text-align: center; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 10px;
+        }
 
         .cards-grid { 
             display: flex; 
             flex-wrap: wrap; 
             justify-content: center; 
-            gap: 12px; 
-            margin-top: 15px; 
-            min-height: 400px; 
-            padding: 15px 10px; 
-            background: rgba(0,0,0,0.3); 
-            border-radius: 16px; 
-            border: 1px solid rgba(65, 35, 117, 0.3); 
+            gap: 10px; 
+            margin-top: 10px; 
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px 5px;
+        }
+        .cards-grid::-webkit-scrollbar {
+            width: 3px;
+        }
+        .cards-grid::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        .cards-grid::-webkit-scrollbar-thumb {
+            background: #f3cf65;
+            border-radius: 10px;
         }
 
         .mini-card {
-            width: 100px;
-            height: 150px;
+            width: 85px;
+            height: 128px;
             border-radius: 12px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
-            transition: all 0.3s ease;
-            background: radial-gradient(circle at 30% 20%, #2a1a4a, #0f0725);
-            background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 2px, transparent 2px, transparent 8px);
+            transition: all 0.25s ease;
+            background: linear-gradient(135deg, #2a1a4a, #0f0725);
+            border: 1px solid rgba(243,207,101,0.2);
             position: relative;
+            flex-shrink: 0;
         }
         .mini-card::before {
             content: "";
             position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
-            border: 1px solid rgba(255,255,255,0.15);
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(243,207,101,0.1);
             border-radius: 8px;
             pointer-events: none;
         }
         
         @media (max-width: 550px) {
-            .mini-card { width: 85px; height: 127px; }
+            .mini-card { width: 72px; height: 108px; }
         }
         
         @media (max-width: 400px) {
-            .mini-card { width: 75px; height: 112px; }
+            .mini-card { width: 65px; height: 98px; }
         }
         
         .mini-card img { 
-            width: 45px; 
-            height: 45px; 
+            width: 38px; 
+            height: 38px; 
             object-fit: contain; 
-            opacity: 0.9;
-            border-radius: 10px;
-            filter: drop-shadow(0 0 6px rgba(255,255,255,0.4));
-            position: relative;
-            z-index: 2;
-        }
-        @media (max-width: 550px) {
-            .mini-card img { width: 38px; height: 38px; }
+            opacity: 0.8;
+            filter: drop-shadow(0 0 8px rgba(243,207,101,0.3));
         }
         
         .mini-card:hover { 
-            transform: translateY(-12px) scale(1.05) !important; 
-            z-index: 20; 
-            box-shadow: 0 12px 30px rgba(255,255,255,0.5);
+            transform: translateY(-5px) scale(1.02); 
+            border-color: rgba(243,207,101,0.5);
+            box-shadow: 0 8px 20px rgba(243,207,101,0.2);
         }
         .mini-card.selected { 
-            opacity: 0.1; 
+            opacity: 0.15; 
             pointer-events: none; 
-            transform: scale(0.6) rotateY(90deg) !important; 
+            transform: scale(0.7);
             filter: blur(2px);
         }
 
         .mensaje-redireccion {
             display: none;
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0,0,0,0.7);
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(0,0,0,0.6);
             border-radius: 12px;
-            border-left: 3px solid #ffffff;
-            font-size: 14px;
-            color: #ffffff;
+            border-left: 3px solid #f3cf65;
+            font-size: 12px;
+            color: #f3cf65;
             text-align: center;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
         }
-        .mensaje-redireccion i { margin-right: 8px; }
 
+        /* MENÚ */
         .menu-carrusel {
-            margin-top: 30px; padding: 20px;
-            background: rgba(7, 3, 15, 0.6); border-radius: 16px;
-            border: 1px solid #412375; text-align: center;
+            margin-top: 20px;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(5px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .carrusel-scroll {
-            display: flex; gap: 15px; overflow-x: auto;
-            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
-            padding: 10px 5px 15px 5px; scrollbar-width: thin;
-            scrollbar-color: #563399 transparent;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 8px 5px;
         }
-        .carrusel-scroll::-webkit-scrollbar { height: 4px; }
-        .carrusel-scroll::-webkit-scrollbar-track { background: transparent; }
-        .carrusel-scroll::-webkit-scrollbar-thumb { background: #563399; border-radius: 4px; }
+        .carrusel-scroll::-webkit-scrollbar { height: 3px; }
+        .carrusel-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        .carrusel-scroll::-webkit-scrollbar-thumb { background: #f3cf65; border-radius: 10px; }
+        
         .tarjeta-enlace {
-            flex: 0 0 auto; scroll-snap-align: center;
-            background: rgba(25, 13, 50, 0.5); border: 1px solid #563399;
-            border-radius: 12px; padding: 20px 25px; text-decoration: none;
-            color: #fff; display: flex; flex-direction: column; align-items: center;
-            gap: 8px; transition: all 0.3s ease; min-width: 160px;
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(243,207,101,0.2);
+            border-radius: 16px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+            min-width: 120px;
         }
         .tarjeta-enlace:hover {
-            border-color: #ffffff; box-shadow: 0 0 20px rgba(255,255,255,0.4);
-            transform: translateY(-5px); background: rgba(34, 18, 71, 0.7);
+            border-color: #f3cf65;
+            background: rgba(243,207,101,0.1);
+            transform: translateY(-3px);
         }
-        .tarjeta-icono { font-size: 28px; color: #ffffff; }
-        .tarjeta-titulo { font-size: 13px; font-weight: bold; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; }
-        .tarjeta-subtitulo { font-size: 10px; color: #cdbeea; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tarjeta-icono { font-size: 22px; color: #f3cf65; }
+        .tarjeta-titulo { font-size: 11px; font-weight: bold; color: #f3cf65; letter-spacing: 1px; }
+        .tarjeta-subtitulo { font-size: 9px; color: #cdbeea; }
     </style>
 </head>
 <body>
     <div class="tarot-app-container">
         <div class="tarot-header">
             <h3 class="tarot-title"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png" alt="Logo"> ORÁCULO DE NEBHULA</h3>
-            <p class="tarot-subtitle">Tirada de Una Carta · Mensaje del Subconsciente</p>
+            <p class="tarot-subtitle">Una carta · Un mensaje · Tu destino</p>
         </div>
 
         <div class="instrucciones-container" id="instruccionesContainer">
@@ -337,58 +502,53 @@
             </div>
             <div class="paso">
                 <div class="paso-icono"><i class="fas fa-brain"></i></div>
-                <div class="paso-texto">Concéntrate en tu pregunta o en lo que necesitas saber hoy</div>
+                <div class="paso-texto">Concéntrate en tu pregunta</div>
             </div>
             <div class="paso">
                 <div class="paso-icono"><i class="fas fa-hand-sparkles"></i></div>
-                <div class="paso-texto">Cuando estés listo, elige una carta del mazo</div>
+                <div class="paso-texto">Elige la carta que resuene contigo</div>
             </div>
             <div class="frase-meditacion">
-                <i class="fas fa-quote-left"></i> El oráculo habla a quien sabe escuchar en silencio <i class="fas fa-quote-right"></i>
+                <i class="fas fa-quote-left"></i> El oráculo habla en silencio <i class="fas fa-quote-right"></i>
             </div>
-            <button class="btn-comenzar" id="btnComenzar"><i class="fas fa-play"></i> Comenzar tirada</button>
+            <button class="btn-comenzar" id="btnComenzar"><i class="fas fa-play"></i> Comenzar</button>
         </div>
 
         <div class="tarot-tapete-zone" id="anclajeTapete">
-            <h3 class="section-title"><i class="fas fa-hand-sparkles"></i> Tu Carta del Día</h3>
             <div class="status-box" id="gameStatus">
-                <i class="fas fa-info-circle"></i> Elige tu carta del mazo...
+                <i class="fas fa-info-circle"></i> Elige tu carta...
             </div>
             <div class="carta-unica-container">
                 <div class="slot-carta" id="slotCarta"></div>
             </div>
             <div class="mensaje-redireccion" id="mensajeRedireccion">
-                <i class="fas fa-hourglass-half"></i> Redirigiendo a la lectura completa...
+                <i class="fas fa-hourglass-half"></i> Redirigiendo...
             </div>
         </div>
 
         <div class="deck-container" id="anclajeMazo">
-            <h3 class="section-title"><i class="fas fa-layer-group"></i> El Oráculo</h3>
-            <div class="action-trigger-zone">
-                <div class="instruccion-baraja" id="instruccionBaraja">
-                    <i class="fas fa-hand-pointer"></i> <strong>SELECCIONA TU CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>
-                </div>
+            <div class="instruccion-baraja" id="instruccionBaraja">
+                <i class="fas fa-hand-pointer"></i> SELECCIONA UNA CARTA
             </div>
             <div class="cards-grid" id="deckGrid"></div>
         </div>
 
         <div class="menu-carrusel">
-            <h3 class="section-title"><i class="fas fa-link"></i> Navegación</h3>
             <div class="carrusel-scroll">
                 <a href="#" class="tarjeta-enlace">
-                    <div class="tarjeta-icono"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEjUGy9535L65WX7wLCwZAczlIdTx4JzKt0dOmu7sk5BvY7jFSb41r49wkE_3XEG4t9I6XLQ9e2FDi2hPzTMTyUChfUKt0fRcDDSkXUbpjl8nuihTDceH6V4Gv9fwtVXYWFOpGvZd9adccVB6l_CBox7EsZHQcS-RRHU979suCfFkX5T2V5tmXomYrawRXND=s269" alt="NEBHULA" style="width:40px;height:40px;object-contain;"></div>
-                    <div class="tarjeta-titulo">NEBHULA</div>
-                    <div class="tarjeta-subtitulo">Volver al mundo real</div>
+                    <div class="tarjeta-icono"><i class="fas fa-home"></i></div>
+                    <div class="tarjeta-titulo">INICIO</div>
+                    <div class="tarjeta-subtitulo">Volver</div>
                 </a>
                 <a href="#" class="tarjeta-enlace">
                     <div class="tarjeta-icono"><i class="fas fa-book-open"></i></div>
                     <div class="tarjeta-titulo">BLOG</div>
-                    <div class="tarjeta-subtitulo">De los sueños</div>
+                    <div class="tarjeta-subtitulo">Artículos</div>
                 </a>
                 <a href="#" class="tarjeta-enlace">
                     <div class="tarjeta-icono"><i class="fas fa-envelope"></i></div>
                     <div class="tarjeta-titulo">CONTACTO</div>
-                    <div class="tarjeta-subtitulo">Hablar con el vidente</div>
+                    <div class="tarjeta-subtitulo">Consulta</div>
                 </a>
             </div>
         </div>
@@ -397,20 +557,13 @@
     <script>
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
-        // 12 CARTAS
         var oraculo = [
-            { id: 1, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 2, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
-            { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
-            { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 6, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
-            { id: 7, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 8, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
-            { id: 9, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 10, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" },
-            { id: 11, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián", enlace: "https://nebhula.com/carta/ladon" },
-            { id: 12, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior", enlace: "https://nebhula.com/carta/nidhogg" }
+            { id: 1, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 2, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Transformación · Fuerza", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Transformación · Fuerza", enlace: "https://nebhula.com/carta/nidhogg" },
+            { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png", palabrasClave: "Protección · Vigilancia · Lealtad", enlace: "https://nebhula.com/carta/ladon" },
+            { id: 6, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png", palabrasClave: "Renovación · Transformación · Fuerza", enlace: "https://nebhula.com/carta/nidhogg" }
         ];
 
         var mazoActivo = [], cartaSeleccionada = null;
@@ -536,10 +689,9 @@
                     var target = cards[np[idx]];
                     if (card === target) return;
                     var r1 = card.getBoundingClientRect(), r2 = target.getBoundingClientRect();
-                    card.style.transition = 'transform 0.25s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.25s';
-                    card.style.transform = 'translate(' + (r2.left-r1.left) + 'px,' + (r2.top-r1.top) + 'px) scale(1.05) rotate(' + (Math.random()*15-7) + 'deg)';
+                    card.style.transition = 'transform 0.25s ease';
+                    card.style.transform = 'translate(' + (r2.left-r1.left) + 'px,' + (r2.top-r1.top) + 'px) scale(1.02)';
                     card.style.zIndex = '30';
-                    card.style.boxShadow = '0 0 20px rgba(255,255,255,0.6)';
                 });
                 setTimeout(function() {
                     var f = document.createDocumentFragment(), ord = [];
@@ -547,18 +699,17 @@
                     ord.forEach(function(c) { f.appendChild(c); });
                     grid.appendChild(f);
                     cards.forEach(function(c) {
-                        c.style.transition = 'transform 0.12s ease, box-shadow 0.12s';
-                        c.style.transform = 'translate(0,0) scale(1) rotate(0deg)';
+                        c.style.transition = 'transform 0.12s ease';
+                        c.style.transform = 'translate(0,0) scale(1)';
                         c.style.zIndex = '1';
-                        c.style.boxShadow = '0 4px 10px rgba(0,0,0,0.5)';
                     });
                     setTimeout(function() {
                         cards = Array.from(grid.querySelectorAll('.mini-card'));
                         pos = np.slice();
                         actual++;
                         ciclo();
-                    }, 140);
-                }, 280);
+                    }, 120);
+                }, 250);
             }
             ciclo();
         }
@@ -567,7 +718,7 @@
             var slot = document.getElementById("slotCarta");
             if (!slot) return;
             slot.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
-                            '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
+                            '<img src="' + ICONO_PIRAMIDE + '">' +
                             '<div class="slot-name">TOMA TU CARTA</div>' +
                             '</div></div>';
         }
@@ -591,14 +742,13 @@
             if (sb) { sb.classList.remove("highlight"); sb.innerHTML = '<i class="fas fa-wind"></i> Mezclando las cartas...'; }
             if (inst) inst.innerHTML = '<i class="fas fa-wind"></i> Mezclando...';
             
-            // 🔥 VOZ DE MEZCLA
             hablarTexto("Mezclando las cartas del oráculo.");
             
             var slot = document.getElementById("slotCarta");
             if (slot) {
                 slot.classList.remove("filled");
                 slot.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
-                                '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
+                                '<img src="' + ICONO_PIRAMIDE + '">' +
                                 '<div class="slot-name">TOMA TU CARTA</div>' +
                                 '</div></div>';
             }
@@ -613,19 +763,17 @@
                 var cd = document.createElement("div");
                 cd.className = "mini-card";
                 cd.id = "deckCard_" + j;
-                cd.innerHTML = '<img src="' + ICONO_PIRAMIDE + '" alt="Carta">';
+                cd.innerHTML = '<img src="' + ICONO_PIRAMIDE + '">';
                 cd.setAttribute("onclick", "clickEnCarta(" + j + ")");
                 grid.appendChild(cd);
             }
             
             sonidoBarajar();
             
-            // Mezcla visual
             mezclaReal(grid, function() {
                 barajando = false;
                 if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-hand-pointer"></i> Elige una carta, la que más te llame la atención.'; }
-                if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA UNA CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>';
-                // 🔥 VOZ DE ELEGIR CARTA (después de la mezcla)
+                if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> SELECCIONA UNA CARTA';
                 hablarTexto("Elige una carta, la que más te llame la atención.");
             });
             grid.scrollIntoView({ behavior: 'smooth' });
@@ -641,9 +789,7 @@
             
             var slot = document.getElementById("slotCarta");
             if (slot) {
-                while (slot.firstChild) {
-                    slot.removeChild(slot.firstChild);
-                }
+                while (slot.firstChild) slot.removeChild(slot.firstChild);
                 slot.classList.add("filled");
                 
                 var flipBox = document.createElement('div');
@@ -675,14 +821,14 @@
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
             if (sb) {
                 sb.classList.add("highlight");
-                sb.innerHTML = '<i class="fas fa-star"></i> Tu carta es: ' + carta.nombre + '<br><span style="font-size:10px;">' + carta.palabrasClave + '</span>';
+                sb.innerHTML = '<i class="fas fa-star"></i> ' + carta.nombre + '<br><span style="font-size:10px;">' + carta.palabrasClave + '</span>';
             }
-            if (inst) inst.innerHTML = '<i class="fas fa-check-circle"></i> <strong>CARTA REVELADA</strong><br><span style="font-size:10px;color:#ffffff;">' + carta.nombre + '</span>';
+            if (inst) inst.innerHTML = '<i class="fas fa-check-circle"></i> CARTA REVELADA: ' + carta.nombre;
             
             var mensajeRedir = document.getElementById("mensajeRedireccion");
             mensajeRedir.style.display = "block";
             
-            var mensajeVoz = carta.nombre + ". " + carta.palabrasClave + ". En breve serás redirigido a la lectura completa de esta carta.";
+            var mensajeVoz = carta.nombre + ". " + carta.palabrasClave + ". En breve serás redirigido a la lectura completa.";
             hablarTexto(mensajeVoz, function() {
                 window.location.href = carta.enlace;
             });
@@ -695,7 +841,7 @@
         };
 
         window.onload = function() {
-            setTimeout(function() { iniciarVoz(); }, 1000);
+            setTimeout(function() { iniciarVoz(); }, 500);
         };
     </script>
 </body>

@@ -27,15 +27,75 @@
         .tarot-subtitle { color: #b4a5cb; font-size: 13px; font-style: italic; }
         .section-title { color: #ffffff; font-size: 16px; margin: 0 0 20px 0; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #412375; padding-bottom: 8px; text-align: center; }
 
-        .tarot-form { background: rgba(25, 13, 50, 0.4); padding: 20px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .form-group { margin-bottom: 16px; text-align: left; }
-        .form-group label { display: block; color: #cdbeea; font-size: 11px; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 1px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; background: #07030f !important; border: 1px solid #563399; border-radius: 8px; color: #fff !important; font-size: 14px; }
-        .form-group textarea { resize: vertical; min-height: 80px; }
-        .pregunta-fija { background: rgba(7, 3, 15, 0.6); padding: 14px; border-radius: 8px; border: 1px solid #563399; color: #cdbeea; font-size: 13px; text-align: center; font-style: italic; margin-top: 6px; line-height: 1.4; }
-        .contador-tiradas { text-align: center; font-size: 10px; color: #a595be; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        /* INSTRUCCIONES */
+        .instrucciones-container {
+            background: rgba(25, 13, 50, 0.6);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 25px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+        .instrucciones-container h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .paso {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .paso-icono {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ffffff;
+        }
+        .paso-texto {
+            font-size: 14px;
+            color: #cdbeea;
+            max-width: 250px;
+            text-align: left;
+        }
+        .frase-meditacion {
+            font-style: italic;
+            color: #ffffff;
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        .btn-comenzar {
+            background: linear-gradient(135deg, #cccccc 0%, #888888 100%);
+            color: #07030f;
+            border: none;
+            padding: 16px 40px;
+            font-size: 16px;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .btn-comenzar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255,255,255,0.5);
+        }
 
-        .tarot-tapete-zone { background: rgba(15, 7, 30, 0.5); padding: 20px; border-radius: 16px; border: 1px dashed #412375; margin-bottom: 25px; text-align: center; position: relative; }
+        .tarot-tapete-zone { background: rgba(15, 7, 30, 0.5); padding: 20px; border-radius: 16px; border: 1px dashed #412375; margin-bottom: 25px; text-align: center; position: relative; display: none; }
         .status-box { background: #07030f; padding: 12px 18px; border-radius: 8px; border-left: 3px solid #ffffff; color: #ded4ef; font-size: 12px; display: inline-block; margin-bottom: 18px; min-width: 280px; max-width: 600px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .status-box.highlight { border-left-color: #ffffff; background: #1f1042; color: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
 
@@ -198,7 +258,7 @@
         }
         .card-side-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .deck-container { background: rgba(7, 3, 15, 0.6); padding: 15px 10px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 25px; text-align: center; }
+        .deck-container { background: rgba(7, 3, 15, 0.6); padding: 15px 10px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 25px; text-align: center; display: none; }
         .action-trigger-zone { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .instruccion-baraja { color: #cdbeea; font-size: 12px; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
 
@@ -268,10 +328,6 @@
             filter: blur(2px);
         }
 
-        .btn-primary-tarot { background: linear-gradient(135deg, #cccccc 0%, #888888 100%); color: #07030f; border: none; padding: 16px 50px; font-size: 15px; font-family: 'Cinzel', serif; font-weight: bold; border-radius: 35px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 25px rgba(255,255,255,0.3); letter-spacing: 2px; transition: all 0.3s ease; }
-        .btn-primary-tarot:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,255,255,0.5); }
-        .btn-primary-tarot:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(50%); }
-
         .mensaje-redireccion {
             display: none;
             margin-top: 20px;
@@ -318,6 +374,8 @@
         .tarjeta-icono { font-size: 28px; color: #ffffff; }
         .tarjeta-titulo { font-size: 13px; font-weight: bold; color: #ffffff; text-transform: uppercase; letter-spacing: 1px; }
         .tarjeta-subtitulo { font-size: 10px; color: #cdbeea; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .contador-tiradas { text-align: center; font-size: 10px; color: #a595be; margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -327,33 +385,31 @@
             <p class="tarot-subtitle">Tirada de Una Carta · Mensaje del Subconsciente</p>
         </div>
 
-        <div class="tarot-form">
-            <h3 class="section-title"><i class="fas fa-star"></i> Datos de Conexión</h3>
-            <div class="form-group">
-                <label><i class="fas fa-user"></i> Nombre Completo:</label>
-                <input type="text" id="tName" placeholder="Ej: María García">
+        <!-- INSTRUCCIONES EN VEZ DE FORMULARIO -->
+        <div class="instrucciones-container" id="instruccionesContainer">
+            <h3><i class="fas fa-moon"></i> Antes de comenzar</h3>
+            <div class="paso">
+                <div class="paso-icono"><i class="fas fa-fan"></i></div>
+                <div class="paso-texto">Respira profundamente 3 veces</div>
             </div>
-            <div class="form-group">
-                <label><i class="fas fa-calendar-alt"></i> Fecha de Nacimiento:</label>
-                <input type="text" id="tBirth" placeholder="Ej: 24 de Abril">
+            <div class="paso">
+                <div class="paso-icono"><i class="fas fa-brain"></i></div>
+                <div class="paso-texto">Concéntrate en tu pregunta o en lo que necesitas saber hoy</div>
             </div>
-            <div class="form-group">
-                <label><i class="fas fa-cloud-moon"></i> Describe tu sueño o pregunta:</label>
-                <textarea id="tDream" rows="3" placeholder="Escribe aquí tu sueño o la pregunta que te trae al oráculo..."></textarea>
+            <div class="paso">
+                <div class="paso-icono"><i class="fas fa-hand-sparkles"></i></div>
+                <div class="paso-texto">Cuando estés listo, elige una carta del mazo</div>
             </div>
-            <div class="form-group">
-                <label><i class="fas fa-question-circle"></i> Pregunta de activación:</label>
-                <div class="pregunta-fija">
-                    <i class="fas fa-key"></i> ¿Qué mensaje tiene mi subconsciente para mí hoy?
-                </div>
+            <div class="frase-meditacion">
+                <i class="fas fa-quote-left"></i> El oráculo habla a quien sabe escuchar en silencio <i class="fas fa-quote-right"></i>
             </div>
-            <div class="contador-tiradas" id="contadorTiradas"></div>
+            <button class="btn-comenzar" id="btnComenzar"><i class="fas fa-play"></i> Comenzar tirada</button>
         </div>
 
         <div class="tarot-tapete-zone" id="anclajeTapete">
             <h3 class="section-title"><i class="fas fa-hand-sparkles"></i> Tu Carta del Día</h3>
             <div class="status-box" id="gameStatus">
-                <i class="fas fa-info-circle"></i> Completa tus datos y pulsa el botón para recibir tu mensaje.
+                <i class="fas fa-info-circle"></i> Elige tu carta del mazo...
             </div>
             <div class="carta-unica-container">
                 <div class="slot-carta" id="slotCarta"></div>
@@ -367,9 +423,8 @@
             <h3 class="section-title"><i class="fas fa-layer-group"></i> El Oráculo</h3>
             <div class="action-trigger-zone">
                 <div class="instruccion-baraja" id="instruccionBaraja">
-                    <i class="fas fa-hand-pointer"></i> <strong>SELECCIONA TU CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la carta que resuene contigo</span>
+                    <i class="fas fa-hand-pointer"></i> <strong>SELECCIONA TU CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>
                 </div>
-                <button class="btn-primary-tarot" id="btnMezclar" onclick="arrancarMazo()"><i class="fas fa-shuffle"></i> Barajar y Elegir</button>
             </div>
             <div class="cards-grid" id="deckGrid"></div>
         </div>
@@ -397,9 +452,6 @@
     </div>
 
     <script>
-        var TELEFONO_VIDENTE = "34677163664";
-        var HORAS_ESPERA = 0;
-        
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
         // 🃏 MAZO
@@ -528,51 +580,6 @@
             } catch(e) {}
         }
 
-        function puedeTirar() {
-            if (HORAS_ESPERA === 0) return true;
-            var d = JSON.parse(localStorage.getItem("tarotData") || "{}");
-            if (!d.ultimaTirada) return true;
-            return ((new Date().getTime() - d.ultimaTirada) / 3600000) >= HORAS_ESPERA;
-        }
-        
-        function guardarTirada() {
-            if (tiradaCompletada || HORAS_ESPERA === 0) return;
-            tiradaCompletada = true;
-            localStorage.setItem("tarotData", JSON.stringify({ ultimaTirada: new Date().getTime(), fecha: new Date().toLocaleString() }));
-            actualizarContador();
-        }
-        
-        function tiempoRestante() {
-            if (HORAS_ESPERA === 0) return "";
-            var d = JSON.parse(localStorage.getItem("tarotData") || "{}");
-            if (!d.ultimaTirada) return "";
-            var f = HORAS_ESPERA - ((new Date().getTime() - d.ultimaTirada) / 3600000);
-            if (f <= 0) return "";
-            var h = Math.floor(f), m = Math.floor((f - h) * 60);
-            if (h > 0 && m > 0) return h + "h " + m + "min";
-            if (h > 0) return h + " horas";
-            return m + " minutos";
-        }
-        
-        function actualizarContador() {
-            var c = document.getElementById("contadorTiradas");
-            if (!c || HORAS_ESPERA === 0) { if(c) c.innerHTML = ""; return; }
-            if (tiradaCompletada) c.innerHTML = '<i class="fas fa-clock"></i> Siguiente tirada en: ' + tiempoRestante();
-            else if (!puedeTirar()) c.innerHTML = '<i class="fas fa-clock"></i> Tirada disponible en: ' + tiempoRestante();
-            else c.innerHTML = '<i class="fas fa-check-circle"></i> Tirada disponible ahora';
-        }
-        
-        function verificarEstadoInicial() {
-            if (!puedeTirar()) {
-                var sb = document.getElementById("gameStatus"), btn = document.getElementById("btnMezclar"), inst = document.getElementById("instruccionBaraja");
-                var t = tiempoRestante();
-                if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-clock"></i> Ya has consultado. Vuelve en ' + t + '.'; }
-                if (inst) inst.innerHTML = '<i class="fas fa-clock"></i> Disponible en ' + t;
-                if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-clock"></i> Espera ' + t; }
-            }
-            actualizarContador();
-        }
-
         function barajarArray(a) {
             var arr = a.slice(), c = arr.length, r, t;
             while (c) {
@@ -594,9 +601,19 @@
                             '</div></div>';
         }
 
+        function iniciarTirada() {
+            // Ocultar instrucciones
+            document.getElementById("instruccionesContainer").style.display = "none";
+            // Mostrar zonas de juego
+            document.getElementById("anclajeTapete").style.display = "block";
+            document.getElementById("anclajeMazo").style.display = "block";
+            
+            crearSlotCarta();
+            arrancarMazo();
+        }
+
         function arrancarMazo() {
             activarAudio();
-            if (!puedeTirar()) { verificarEstadoInicial(); return; }
             if (barajando) return;
             barajando = true;
             cartaSeleccionada = null;
@@ -728,8 +745,6 @@
                 }, 150);
             }
             
-            guardarTirada();
-            
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
             if (sb) {
                 sb.classList.add("highlight");
@@ -748,9 +763,11 @@
             document.getElementById("anclajeTapete").scrollIntoView({ behavior: 'smooth' });
         }
 
+        document.getElementById("btnComenzar").onclick = function() {
+            iniciarTirada();
+        };
+
         window.onload = function() {
-            crearSlotCarta();
-            verificarEstadoInicial();
             setTimeout(function() { iniciarVoz(); }, 1000);
         };
     </script>

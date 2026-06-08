@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Oráculo de Nebhula - Pirámide Origen · Presente · Destino</title>
+    <title>Oráculo de Nebhula - Tirada de Una Carta</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -39,12 +39,16 @@
         .status-box { background: #07030f; padding: 12px 18px; border-radius: 8px; border-left: 3px solid #ffffff; color: #ded4ef; font-size: 12px; display: inline-block; margin-bottom: 18px; min-width: 280px; max-width: 600px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
         .status-box.highlight { border-left-color: #ffffff; background: #1f1042; color: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
 
-        .selection-slots { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 25px !important; margin: 0 auto !important; min-height: 450px; position: relative; }
-        .triangulo-row { display: flex !important; justify-content: center !important; align-items: center !important; gap: 35px !important; position: relative; }
-
-        .slot-pyramid {
-            width: 200px;
-            height: 300px;
+        .carta-unica-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 350px;
+            margin: 20px 0;
+        }
+        .slot-carta {
+            width: 250px;
+            height: 350px;
             border: none;
             border-radius: 16px;
             background: rgba(25, 13, 50, 0.4);
@@ -56,27 +60,19 @@
             position: relative;
             cursor: pointer;
             overflow: hidden;
+            margin: 0 auto;
         }
         
         @media (max-width: 650px) {
-            .slot-pyramid { width: 160px; height: 240px; }
-            .triangulo-row { gap: 20px; }
-            .selection-slots { gap: 20px; }
+            .slot-carta { width: 200px; height: 280px; }
         }
         
         @media (max-width: 480px) {
-            .slot-pyramid { width: 140px; height: 210px; }
-            .triangulo-row { gap: 15px; }
+            .slot-carta { width: 170px; height: 240px; }
         }
 
-        .slot-pyramid:hover { 
-            box-shadow: 0 0 20px rgba(255,255,255,0.5);
-        }
-        .slot-pyramid.filled { 
-            background: #0a0520; 
-            box-shadow: 0 0 25px rgba(255,255,255,0.4);
-        }
-        .slot-pyramid.completed { animation: pulseSlot 2s ease-in-out infinite; }
+        .slot-carta:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); }
+        .slot-carta.filled { background: #0a0520; box-shadow: 0 0 25px rgba(255,255,255,0.4); }
 
         .slot-placeholder { 
             display: flex;
@@ -121,43 +117,27 @@
             position: relative;
             z-index: 2;
         }
-        .slot-name { 
+        .slot-placeholder .slot-name { 
             font-size: 14px; 
             color: #ffffff; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
             font-weight: bold; 
             text-shadow: 0 0 6px rgba(255,255,255,0.4);
-            margin-bottom: 6px;
-            position: relative;
-            z-index: 2;
-        }
-        .slot-desc { 
-            font-size: 10px; 
-            color: #cdbeea; 
-            font-style: italic;
             position: relative;
             z-index: 2;
         }
 
-        .slot-pyramid.filled {
+        .slot-carta.filled {
             padding: 0;
             display: block;
         }
-        .slot-pyramid.filled .card-flip-box {
+        .slot-carta.filled .card-flip-box {
             width: 100%;
             height: 100%;
             position: relative;
         }
-        
-        .slot-pyramid.filled .slot-placeholder {
-            display: none;
-        }
-
-        @keyframes pulseSlot {
-            0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-            50% { box-shadow: 0 0 50px rgba(255,255,255,0.6); }
-        }
+        .slot-carta.filled .slot-placeholder { display: none; }
 
         .card-flip-box { 
             width: 100%; 
@@ -167,9 +147,7 @@
             transition: transform 1.2s cubic-bezier(0.25, 0.1, 0.1, 1); 
             border-radius: 14px;
         }
-        .card-flip-box.is-flipped { 
-            transform: rotateY(180deg); 
-        }
+        .card-flip-box.is-flipped { transform: rotateY(180deg); }
         .card-side { 
             position: absolute; 
             width: 100%; 
@@ -218,25 +196,7 @@
             align-items: center;
             justify-content: center;
         }
-        .card-side-front img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block; 
-        }
-
-        .piramide-completada-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 10;
-            background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.15) 0%, rgba(15,7,30,0.7) 70%);
-            animation: brilloAscendente 2s ease-out forwards;
-            border-radius: 16px;
-        }
-        @keyframes brilloAscendente {
-            0% { opacity: 0; }
-            50% { opacity: 1; }
-            100% { opacity: 0; }
-        }
+        .card-side-front img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         .deck-container { background: rgba(7, 3, 15, 0.6); padding: 15px 10px; border-radius: 16px; border: 1px solid #412375; margin-bottom: 25px; text-align: center; }
         .action-trigger-zone { margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -312,9 +272,23 @@
         .btn-primary-tarot:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255,255,255,0.5); }
         .btn-primary-tarot:disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(50%); }
 
-        .whatsapp-btn { display: none; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: #fff !important; text-decoration: none; padding: 18px 45px; font-size: 16px; font-weight: bold; border-radius: 40px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(37,211,102,0.5); margin: 15px auto; max-width: 400px; text-align: center; animation: pulseBtn 2s ease-in-out infinite; }
-        @keyframes pulseBtn { 0%, 100% { box-shadow: 0 10px 30px rgba(37,211,102,0.5); } 50% { box-shadow: 0 15px 45px rgba(37,211,102,0.8); } }
-        .whatsapp-btn:hover { transform: translateY(-3px); }
+        .mensaje-redireccion {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 12px;
+            border-left: 3px solid #ffffff;
+            font-size: 14px;
+            color: #ffffff;
+            text-align: center;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mensaje-redireccion i {
+            margin-right: 8px;
+        }
 
         .menu-carrusel {
             margin-top: 30px; padding: 20px;
@@ -350,7 +324,7 @@
     <div class="tarot-app-container">
         <div class="tarot-header">
             <h3 class="tarot-title"><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png" alt="Logo"> ORÁCULO DE NEBHULA</h3>
-            <p class="tarot-subtitle">Pirámide del Destino · Origen · Presente · Destino</p>
+            <p class="tarot-subtitle">Tirada de Una Carta · Mensaje del Subconsciente</p>
         </div>
 
         <div class="tarot-form">
@@ -364,41 +338,40 @@
                 <input type="text" id="tBirth" placeholder="Ej: 24 de Abril">
             </div>
             <div class="form-group">
-                <label><i class="fas fa-cloud-moon"></i> Describe tu sueño:</label>
-                <textarea id="tDream" rows="3" placeholder="Al despertar, cierra los ojos y escribe las imágenes o sensaciones más potentes de tu sueño..."></textarea>
+                <label><i class="fas fa-cloud-moon"></i> Describe tu sueño o pregunta:</label>
+                <textarea id="tDream" rows="3" placeholder="Escribe aquí tu sueño o la pregunta que te trae al oráculo..."></textarea>
             </div>
             <div class="form-group">
                 <label><i class="fas fa-question-circle"></i> Pregunta de activación:</label>
                 <div class="pregunta-fija">
-                    <i class="fas fa-key"></i> ¿Qué conflicto real me está mostrando mi subconsciente a través de este sueño y qué acción debo tomar hoy para resolverlo?
+                    <i class="fas fa-key"></i> ¿Qué mensaje tiene mi subconsciente para mí hoy?
                 </div>
             </div>
             <div class="contador-tiradas" id="contadorTiradas"></div>
         </div>
 
         <div class="tarot-tapete-zone" id="anclajeTapete">
-            <h3 class="section-title"><i class="fas fa-hand-sparkles"></i> Tu Pirámide del Destino</h3>
+            <h3 class="section-title"><i class="fas fa-hand-sparkles"></i> Tu Carta del Día</h3>
             <div class="status-box" id="gameStatus">
-                <i class="fas fa-info-circle"></i> Describe tu sueño arriba y pulsa el botón para desvelar el mensaje de tu subconsciente.
+                <i class="fas fa-info-circle"></i> Completa tus datos y pulsa el botón para recibir tu mensaje.
             </div>
-            <div class="selection-slots" id="slotsContainer"></div>
+            <div class="carta-unica-container">
+                <div class="slot-carta" id="slotCarta"></div>
+            </div>
+            <div class="mensaje-redireccion" id="mensajeRedireccion">
+                <i class="fas fa-hourglass-half"></i> Redirigiendo a la lectura completa...
+            </div>
         </div>
 
         <div class="deck-container" id="anclajeMazo">
             <h3 class="section-title"><i class="fas fa-layer-group"></i> El Oráculo</h3>
             <div class="action-trigger-zone">
                 <div class="instruccion-baraja" id="instruccionBaraja">
-                    <i class="fas fa-hand-pointer"></i> <strong>SELECCIONA 3 CARTAS</strong><br><span style="font-size:10px;color:#cdbeea;">Elige las que resuenen con tu sueño</span>
+                    <i class="fas fa-hand-pointer"></i> <strong>SELECCIONA TU CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la carta que resuene contigo</span>
                 </div>
                 <button class="btn-primary-tarot" id="btnMezclar" onclick="arrancarMazo()"><i class="fas fa-shuffle"></i> Barajar y Elegir</button>
             </div>
             <div class="cards-grid" id="deckGrid"></div>
-        </div>
-
-        <div style="text-align:center;">
-            <a href="#" id="wsBtn" class="whatsapp-btn" target="_blank">
-                <i class="fab fa-whatsapp"></i> ENVIAR CONSULTA PARA SU INTERPRETACIÓN
-            </a>
         </div>
 
         <div class="menu-carrusel">
@@ -429,38 +402,41 @@
         
         var ICONO_PIRAMIDE = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhY6zHYjzijpVJlVCosE5diE3MkRWSuVOtzHgLphM2iLdLhpe1kTeJOVxdnjmAnl3r8OJtbd7en9Ia0bwxykgvjOMy8ZzhuO6E9ejqcmh-14v8zojsy3tFmeCIXkqwXjFvWvWJ5mv7bcxEtG3mH1_CuSfp7fz1NYlGC_gTAL-4SCXKnfzDtD7gSiBIQ4UoG/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2812%29%20-%20copia.png";
 
-        // 🃏 MAZO COMPLETO CON IMÁGENES REALES (Ladón y Nidhogg)
+        // 🃏 MAZO
         var oraculo = [
-            { id: 1, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 2, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 3, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 4, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 5, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 6, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 7, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 8, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 9, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 10, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" },
-            { id: 11, nombre: "Ladón", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png" },
-            { id: 12, nombre: "Nidhogg", img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png" }
+            { 
+                id: 1, 
+                nombre: "Ladón", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEihmE6CLKfFC1vJHrBSSVvUyYrJI7fexCMK0IWlaHYWGASuLOlTss_z95jo8o3_pW2B-xGluHLVhodTmdKk9B-BvcLGkazNzp_WsJC7mdsgcQN9sicKQIzPefpYl5w0tk7WW6fJJF0EpCz6Uwv0TtO0gtGsQ4Ta-06OPvmMEW-cxkp7O6GbGvzQCt03NXhK/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2816%29.png",
+                palabrasClave: "Protección · Vigilancia · Lealtad · Fuego guardián",
+                enlace: "https://nebhula.com/carta/ladon"
+            },
+            { 
+                id: 2, 
+                nombre: "Nidhogg", 
+                img: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjExRpgv2ZvwhjRJrbr0cg2N2Q36Zn9k07lt5pX-l0n30b6UYJxNAXTNCjDVKB9bkuRETzgBBzCHxKwKFjkJbuwm1suqXYe7oJG0w-qgEOI4JccGA3L3gmqBUujwVhWE-7sCsI0_3yRben7bXzjCExXymCITNooh-8138CadZL8l1GaL7gJTNrfvCKt_fi2/s1600/Purple%20and%20Gold%20Aquarius%20Zodiac%20Sign%20Horoscope%20Card%20%2817%29.png",
+                palabrasClave: "Renovación · Fin de ciclos · Transformación · Fuerza interior",
+                enlace: "https://nebhula.com/carta/nidhogg"
+            },
+            { 
+                id: 3, 
+                nombre: "El Viajero", 
+                img: "https://via.placeholder.com/300x400?text=Viajero",
+                palabrasClave: "Camino · Aventura · Descubrimiento · Nuevos horizontes",
+                enlace: "https://nebhula.com/carta/viajero"
+            },
+            { 
+                id: 4, 
+                nombre: "La Puerta", 
+                img: "https://via.placeholder.com/300x400?text=Puerta",
+                palabrasClave: "Oportunidad · Transición · Decisiones · Nuevo comienzo",
+                enlace: "https://nebhula.com/carta/puerta"
+            }
         ];
 
-        var mazoActivo = [], cartasSeleccionadas = [], limiteCartas = 3;
+        var mazoActivo = [], cartaSeleccionada = null;
         var barajando = false, tiradaCompletada = false;
         var audioCtx = null;
-
-        var nombresPosiciones = ["ORIGEN", "PRESENTE", "DESTINO"];
-        var descripcionesPosiciones = [
-            "De dónde viene · Causa · Raíz",
-            "Estado actual · Cómo se manifiesta ahora",
-            "Hacia dónde evoluciona · Aprendizaje"
-        ];
-        
-        var mensajesGuia = [
-            "Elige la carta para ORIGEN: de dónde viene, la causa, la raíz.",
-            "Elige la carta para PRESENTE: estado actual, cómo se manifiesta ahora.",
-            "Elige la carta para DESTINO: hacia dónde evoluciona, el aprendizaje."
-        ];
 
         var vozEspañol = null;
         function iniciarVoz() {
@@ -471,7 +447,8 @@
             }
             if (!vozEspañol && voces.length > 0) vozEspañol = voces[0];
         }
-        function hablar(texto, callback) {
+        
+        function hablarTexto(texto, callback) {
             if (!window.speechSynthesis) return;
             speechSynthesis.cancel();
             iniciarVoz();
@@ -484,6 +461,7 @@
             if (callback) u.onend = callback;
             speechSynthesis.speak(u);
         }
+        
         speechSynthesis.onvoiceschanged = function() { iniciarVoz(); };
 
         function activarAudio() {
@@ -494,6 +472,7 @@
                 } catch(e) {}
             }
         }
+        
         function sonidoBarajar() {
             try {
                 activarAudio();
@@ -520,6 +499,7 @@
                 }
             } catch(e) {}
         }
+        
         function sonidoCartaColocada() {
             try {
                 activarAudio();
@@ -547,33 +527,6 @@
                 o2.stop(a + 0.6);
             } catch(e) {}
         }
-        function sonidoTrianguloCompletado() {
-            try {
-                activarAudio();
-                if (!audioCtx) return;
-                var a = audioCtx.currentTime, freqs = [528, 639, 852];
-                for (var f = 0; f < freqs.length; f++) {
-                    var o = audioCtx.createOscillator(), v = audioCtx.createOscillator(), vg = audioCtx.createGain(), g = audioCtx.createGain();
-                    v.type = 'sine';
-                    v.frequency.value = 4 + f * 0.5;
-                    vg.gain.value = 8;
-                    v.connect(vg);
-                    vg.connect(o.frequency);
-                    o.type = 'sine';
-                    o.frequency.value = freqs[f];
-                    var ini = a + f * 0.3;
-                    g.gain.setValueAtTime(0.12, ini);
-                    g.gain.linearRampToValueAtTime(0.08, ini + 0.4);
-                    g.gain.exponentialRampToValueAtTime(0.001, ini + 2.0);
-                    o.connect(g);
-                    g.connect(audioCtx.destination);
-                    o.start(ini);
-                    v.start(ini);
-                    o.stop(ini + 2.0);
-                    v.stop(ini + 2.0);
-                }
-            } catch(e) {}
-        }
 
         function puedeTirar() {
             if (HORAS_ESPERA === 0) return true;
@@ -581,12 +534,14 @@
             if (!d.ultimaTirada) return true;
             return ((new Date().getTime() - d.ultimaTirada) / 3600000) >= HORAS_ESPERA;
         }
+        
         function guardarTirada() {
             if (tiradaCompletada || HORAS_ESPERA === 0) return;
             tiradaCompletada = true;
             localStorage.setItem("tarotData", JSON.stringify({ ultimaTirada: new Date().getTime(), fecha: new Date().toLocaleString() }));
             actualizarContador();
         }
+        
         function tiempoRestante() {
             if (HORAS_ESPERA === 0) return "";
             var d = JSON.parse(localStorage.getItem("tarotData") || "{}");
@@ -598,6 +553,7 @@
             if (h > 0) return h + " horas";
             return m + " minutos";
         }
+        
         function actualizarContador() {
             var c = document.getElementById("contadorTiradas");
             if (!c || HORAS_ESPERA === 0) { if(c) c.innerHTML = ""; return; }
@@ -605,6 +561,7 @@
             else if (!puedeTirar()) c.innerHTML = '<i class="fas fa-clock"></i> Tirada disponible en: ' + tiempoRestante();
             else c.innerHTML = '<i class="fas fa-check-circle"></i> Tirada disponible ahora';
         }
+        
         function verificarEstadoInicial() {
             if (!puedeTirar()) {
                 var sb = document.getElementById("gameStatus"), btn = document.getElementById("btnMezclar"), inst = document.getElementById("instruccionBaraja");
@@ -628,34 +585,13 @@
             return arr;
         }
 
-        function crearSlotsTriangulo() {
-            var sc = document.getElementById("slotsContainer");
-            if (!sc) return;
-            sc.innerHTML = "";
-            sc.className = "selection-slots";
-            
-            var filaDestino = document.createElement("div");
-            filaDestino.className = "triangulo-row";
-            filaDestino.appendChild(crearSlot(2));
-            sc.appendChild(filaDestino);
-            
-            var filaBase = document.createElement("div");
-            filaBase.className = "triangulo-row";
-            filaBase.appendChild(crearSlot(0));
-            filaBase.appendChild(crearSlot(1));
-            sc.appendChild(filaBase);
-        }
-        
-        function crearSlot(i) {
-            var s = document.createElement("div");
-            s.className = "slot-pyramid";
-            s.id = "slot" + i;
-            s.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
-                         '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
-                         '<div class="slot-name">' + nombresPosiciones[i] + '</div>' +
-                         '<div class="slot-desc">' + descripcionesPosiciones[i] + '</div>' +
-                         '</div></div>';
-            return s;
+        function crearSlotCarta() {
+            var slot = document.getElementById("slotCarta");
+            if (!slot) return;
+            slot.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
+                            '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
+                            '<div class="slot-name">TOMA TU CARTA</div>' +
+                            '</div></div>';
         }
 
         function arrancarMazo() {
@@ -663,30 +599,26 @@
             if (!puedeTirar()) { verificarEstadoInicial(); return; }
             if (barajando) return;
             barajando = true;
-            cartasSeleccionadas = [];
+            cartaSeleccionada = null;
             tiradaCompletada = false;
             var grid = document.getElementById("deckGrid");
             if (!grid) return;
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
             if (sb) { sb.classList.remove("highlight"); sb.innerHTML = '<i class="fas fa-wind"></i> Mezclando las cartas...'; }
             if (inst) inst.innerHTML = '<i class="fas fa-wind"></i> Mezclando...';
-            hablar("Mezclando las cartas del oráculo.");
+            hablarTexto("Mezclando las cartas del oráculo.");
             
-            for (var s = 0; s < 3; s++) {
-                var slot = document.getElementById("slot" + s);
-                if (slot) {
-                    slot.classList.remove("filled", "completed");
-                    slot.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
-                                    '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
-                                    '<div class="slot-name">' + nombresPosiciones[s] + '</div>' +
-                                    '<div class="slot-desc">' + descripcionesPosiciones[s] + '</div>' +
-                                    '</div></div>';
-                }
+            var slot = document.getElementById("slotCarta");
+            if (slot) {
+                slot.classList.remove("filled");
+                slot.innerHTML = '<div class="slot-placeholder"><div class="card-back-texture">' +
+                                '<img src="' + ICONO_PIRAMIDE + '" alt="Pirámide">' +
+                                '<div class="slot-name">TOMA TU CARTA</div>' +
+                                '</div></div>';
             }
             
-            document.getElementById("wsBtn").style.display = "none";
-            var oldOverlay = document.querySelector(".piramide-completada-overlay");
-            if (oldOverlay) oldOverlay.remove();
+            var mensajeRedir = document.getElementById("mensajeRedireccion");
+            if (mensajeRedir) mensajeRedir.style.display = "none";
             
             mazoActivo = barajarArray(oraculo);
             grid.innerHTML = "";
@@ -704,9 +636,9 @@
             sonidoBarajar();
             mezclaReal(grid, function() {
                 barajando = false;
-                if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-hand-pointer"></i> ' + mensajesGuia[0]; }
-                if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA 3 CARTAS</strong><br><span style="font-size:10px;color:#cdbeea;">' + mensajesGuia[0] + '</span>';
-                hablar(mensajesGuia[0]);
+                if (sb) { sb.classList.add("highlight"); sb.innerHTML = '<i class="fas fa-hand-pointer"></i> Elige una carta, la que más te llame la atención.'; }
+                if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA UNA CARTA</strong><br><span style="font-size:10px;color:#cdbeea;">Elige la que resuene contigo</span>';
+                hablarTexto("Elige una carta, la que más te llame la atención.");
             });
             grid.scrollIntoView({ behavior: 'smooth' });
         }
@@ -756,14 +688,14 @@
         }
 
         function clickEnCarta(indice) {
-            if (barajando || cartasSeleccionadas.length >= limiteCartas) return;
+            if (barajando || cartaSeleccionada !== null) return;
             var celda = document.getElementById("deckCard_" + indice);
             if (!celda || celda.classList.contains("selected")) return;
             var carta = mazoActivo[indice];
-            cartasSeleccionadas.push(carta);
+            cartaSeleccionada = carta;
             celda.classList.add("selected");
-            var ranura = cartasSeleccionadas.length - 1;
-            var slot = document.getElementById("slot" + ranura);
+            
+            var slot = document.getElementById("slotCarta");
             if (slot) {
                 while (slot.firstChild) {
                     slot.removeChild(slot.firstChild);
@@ -772,7 +704,7 @@
                 
                 var flipBox = document.createElement('div');
                 flipBox.className = 'card-flip-box';
-                flipBox.id = 'flipBox' + ranura;
+                flipBox.id = 'flipBox';
                 flipBox.style.width = '100%';
                 flipBox.style.height = '100%';
                 flipBox.style.position = 'relative';
@@ -791,66 +723,33 @@
                 
                 sonidoCartaColocada();
                 setTimeout(function() {
-                    var tb = document.getElementById("flipBox" + ranura);
+                    var tb = document.getElementById("flipBox");
                     if (tb) tb.classList.add("is-flipped");
                 }, 150);
             }
-            document.getElementById("anclajeTapete").scrollIntoView({ behavior: 'smooth' });
+            
+            guardarTirada();
+            
             var sb = document.getElementById("gameStatus"), inst = document.getElementById("instruccionBaraja");
-            if (cartasSeleccionadas.length === limiteCartas) {
-                guardarTirada();
-                sonidoTrianguloCompletado();
-                if (sb) {
-                    sb.classList.add("highlight");
-                    sb.innerHTML = '<i class="fas fa-check-circle"></i> ¡Pirámide completada!';
-                }
-                if (inst) inst.innerHTML = '<i class="fas fa-arrow-down"></i> <strong>TU LECTURA ESTÁ LISTA</strong><br><span style="font-size:10px;color:#ffffff;">Pulsa el botón verde para enviarla al vidente</span>';
-                hablar("Pirámide completada. Tu lectura está lista.");
-                for (var s = 0; s < 3; s++) {
-                    var sl = document.getElementById("slot" + s);
-                    if (sl) sl.classList.add("completed");
-                }
-                var tapete = document.getElementById("anclajeTapete");
-                var overlay = document.createElement("div");
-                overlay.className = "piramide-completada-overlay";
-                tapete.appendChild(overlay);
-                setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 2500);
-                armarEnlaceWhatsApp();
-                setTimeout(function() {
-                    var btn = document.getElementById("wsBtn");
-                    if (btn) { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
-                }, 4000);
-            } else {
-                if (sb) {
-                    sb.classList.add("highlight");
-                    sb.innerHTML = '<i class="fas fa-hand-sparkles"></i> ' + mensajesGuia[cartasSeleccionadas.length];
-                }
-                if (inst) inst.innerHTML = '<i class="fas fa-hand-pointer"></i> <strong>SELECCIONA ' + (limiteCartas - cartasSeleccionadas.length) + ' CARTAS MÁS</strong><br><span style="font-size:10px;color:#cdbeea;">' + mensajesGuia[cartasSeleccionadas.length] + '</span>';
-                hablar(mensajesGuia[cartasSeleccionadas.length]);
+            if (sb) {
+                sb.classList.add("highlight");
+                sb.innerHTML = '<i class="fas fa-star"></i> Tu carta es: ' + carta.nombre + '<br><span style="font-size:10px;">' + carta.palabrasClave + '</span>';
             }
-        }
-
-        function armarEnlaceWhatsApp() {
-            var n = document.getElementById("tName").value.trim() || "Anónimo";
-            var f = document.getElementById("tBirth").value.trim() || "No especificada";
-            var d = document.getElementById("tDream").value.trim() || "Sueño no descrito";
-            var msg = "🔮 *ORÁCULO DE NEBHULA* 🔮\n\n👤 *Nombre:* " + n + "\n📅 *Fecha:* " + f + "\n💭 *Sueño:* " + d + "\n\n🃏 *PIRÁMIDE DEL DESTINO:*\n";
-            msg += "📌 *Significado de las posiciones:*\n";
-            msg += "• ORIGEN → De dónde viene, causa, raíz\n";
-            msg += "• PRESENTE → Estado actual, cómo se manifiesta ahora\n";
-            msg += "• DESTINO → Hacia dónde evoluciona, aprendizaje\n\n";
-            msg += "*CARTAS OBTENIDAS:*\n";
-            for (var m = 0; m < cartasSeleccionadas.length; m++) {
-                msg += "• *" + nombresPosiciones[m] + "* (" + descripcionesPosiciones[m] + ") → " + cartasSeleccionadas[m].nombre + "\n";
-            }
-            msg += "\n_Solicito mi interpretación personalizada por WhatsApp._";
-            var link = "https://wa.me/" + TELEFONO_VIDENTE + "?text=" + encodeURIComponent(msg);
-            var btn = document.getElementById("wsBtn");
-            if (btn) { btn.href = link; btn.style.display = "inline-block"; }
+            if (inst) inst.innerHTML = '<i class="fas fa-check-circle"></i> <strong>CARTA REVELADA</strong><br><span style="font-size:10px;color:#ffffff;">' + carta.nombre + '</span>';
+            
+            var mensajeRedir = document.getElementById("mensajeRedireccion");
+            mensajeRedir.style.display = "block";
+            
+            var mensajeVoz = carta.nombre + ". " + carta.palabrasClave + ". En breve serás redirigido a la lectura completa de esta carta.";
+            hablarTexto(mensajeVoz, function() {
+                window.location.href = carta.enlace;
+            });
+            
+            document.getElementById("anclajeTapete").scrollIntoView({ behavior: 'smooth' });
         }
 
         window.onload = function() {
-            crearSlotsTriangulo();
+            crearSlotCarta();
             verificarEstadoInicial();
             setTimeout(function() { iniciarVoz(); }, 1000);
         };
